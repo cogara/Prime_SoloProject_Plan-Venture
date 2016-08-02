@@ -8,7 +8,8 @@ angular
 
   function LoginController($http, $state, DataService) {
     var vm = this;
-    vm.testing = 'this is a test';
+    vm.username = 'test';
+    vm.password = '123';
 
     vm.login = login;
 

@@ -59,39 +59,12 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'JoinTripController',
       controllerAs: 'join'
     })
-    .state('route1', {
-      url: '/route1',
-      templateUrl: '/views/state1.html'
-    })
-      .state('route1.list', {
-        url: '/list',
-        templateUrl: '/views/state1.list.html'
-        // controller: 'StateOneController',
-        // controllerAs: 'one'
-      })
-
-    .state('route2', {
-      url: '/route2',
-      templateUrl: '/views/state2.html'
-    })
-      .state('route2.list', {
-        url: '/list',
-        templateUrl: '/views/state2.list.html'
-        // controller: 'StateTwoController',
-        // controllerAs: 'two'
-      })
-      .state('route2.stuff', {
-        url: '/stuff',
-        templateUrl: '/views/state2.stuff.html'
-        // controller: 'StateTwoController',
-        // controllerAs: 'two'
-      })
-      .state('route2.more', {
-        url: '/more',
-        templateUrl: '/views/state2.more.html'
-        // controller: 'StateTwoController',
-        // controllerAs: 'two'
-      })
+    .state('dashboard.preferences', {
+      url: '/preferences',
+      templateUrl: '/views/preferences.html'
+      // controller: 'UserPrefController',
+      // controllerAs: 'user'
+    });
 
   $locationProvider.html5Mode(true);
 }
