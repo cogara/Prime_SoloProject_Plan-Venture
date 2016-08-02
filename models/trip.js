@@ -11,7 +11,8 @@ var config = {
 
 var pool = new pg.Pool(config);
 
-function getUsers(tripId, callback) {
+function getOverview(tripId, callback) {
+  var data = {};
   // console.log('Getting Trips');
   pool.connect(function(err, client, done){
     if(err){
@@ -23,8 +24,16 @@ function getUsers(tripId, callback) {
         done(err);
         return callback(err)
       }
-      done();
-      callback(null, users.rows);
+      client.query('SELECT id, trip_name, organizer_id, date, location, duration FROM trips WHERE id=$1', [tripId], function(err, info) {
+        if(err){
+          done(err);
+          return callback(err);
+        }
+        done();
+        data.users = users.rows;
+        data.info = info.rows;
+        callback(null, data);
+      });
     });
   });
 }
@@ -51,33 +60,99 @@ function newTrip(request, callback) {
   console.log(request.user);
   var tripName = request.body.tripName;
   var organizerId = request.user.id;
-  var tripDate = new Date();
+  var tripDate = request.body.tripDate
   var tripDuration = request.body.tripDuration;
-  pool.connect(function(err, client, done){
-    if(err){
-      done();
+  var tripLocation = request.body.tripLocation;
+  var accessCode = request.body.accessCode;
+  bcrypt.hash(accessCode, SALT_WORK_FACTOR, function(err, hash) {
+    if(err) {
+      console.log(err);
       return callback(err);
     }
-    client.query('INSERT INTO trips (trip_name, organizer_id, date, duration) VALUES ($1, $2, $3, $4) RETURNING id, trip_name', [tripName, organizerId, tripDate, tripDuration], function(err, trip){
+    pool.connect(function(err, client, done){
       if(err){
-        done(err);
-        return callback(err)
+        done();
+        return callback(err);
       }
-      client.query('INSERT INTO trip_assignments (trip_id, user_id) VALUES ($1, $2)',[trip.rows[0].id, organizerId], function(err, result){
+      console.log('Access Code', hash);
+      client.query('INSERT INTO trips (trip_name, organizer_id, date, location, duration, access_code) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, trip_name', [tripName, organizerId, tripDate, tripLocation, tripDuration, hash], function(err, trip){
         if(err){
           done(err);
           return callback(err)
         }
-        done();
-        console.log(trip.rows);
-        callback(null, trip.rows);
+        client.query('INSERT INTO trip_assignments (trip_id, user_id) VALUES ($1, $2)',[trip.rows[0].id, organizerId], function(err, result){
+          if(err){
+            done(err);
+            return callback(err)
+          }
+          done();
+          callback(null, trip.rows);
+        });
       });
     });
   });
 }
 
+function joinTrip(request, callback) {
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('SELECT id, access_code FROM trips WHERE trip_name=$1',[request.body.tripName], function(err, trip){
+      if(err){
+        console.log(err);
+        done();
+        return callback(err);
+      }
+      if(!trip.rows[0]){
+        done();
+        return callback(null, {message: 'no trip found'});
+      }
+      client.query('SELECT * FROM trip_assignments WHERE trip_id=$1 AND user_id=$2', [trip.rows[0].id, request.user.id], function(err, users){
+        if(err) {
+          console.log('line 116', err);
+          done();
+          return callback(err);
+        }
+        if(users.rows[0]) {
+          done();
+          return callback(null, {message: 'Already Added'});
+        }
+        if(!users.rows[0]) {
+          bcrypt.compare(request.body.accessCode, trip.rows[0].access_code, function(err, isMatch){
+            if(err){
+              console.log(err);
+              done();
+              return callback(err);
+            }
+            if(!isMatch) {
+              done();
+              return callback(null, {message: 'Invalid Access Code'})
+            }
+            if (isMatch) {
+              client.query('INSERT INTO trip_assignments (trip_id, user_id) VALUES ($1, $2) RETURNING trip_id, user_id', [trip.rows[0].id, request.user.id], function(err, result){
+                if(err) {
+                  console.log(err);
+                  done();
+                  return callback(err);
+                }
+                done();
+                return callback(null, {message: 'User Added'});
+              })
+            }
+          })
+        }
+
+
+      })
+    })
+  })
+}
+
 module.exports = {
-  getUsers: getUsers,
+  getOverview: getOverview,
   getGroupEquipment: getGroupEquipment,
-  newTrip: newTrip
+  newTrip: newTrip,
+  joinTrip: joinTrip
 };

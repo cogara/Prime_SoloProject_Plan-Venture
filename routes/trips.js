@@ -14,24 +14,18 @@ router.get('/', function(request, response) {
   })
 })
 
-router.get('/users/:tripid', function(request, response) {
-  console.log('getting id');
-  console.log(request.params.tripid);
-  Trip.getUsers(request.params.tripid, function(err, users){
+router.get('/info/:tripid', function(request, response) {
+  Trip.getOverview(request.params.tripid, function(err, overview){
     if(err) {
       console.log(err);
       response.sendStatus(500);
     } else {
-      console.log(users);
-      response.send(users);
+      response.send(overview);
     }
   })
 })
 
 router.get('/pe/:tripid', function(request, response) {
-  console.log('getting equipment');
-  console.log(request.params);
-  console.log(request.user);
   User.getPersonalEquipment(request.user.id, request.params.tripid, function(err, equipment){
     if(err) {
       console.log(err);
@@ -48,7 +42,6 @@ router.get('/ge/:tripid', function(request, response) {
       console.log(err);
       response.sendStatus(500);
     } else {
-      console.log('Group equip', equipment);
       response.send(equipment);
     }
   })
@@ -61,6 +54,17 @@ router.post('/create', function(request, response) {
       response.sendStatus(500)
     } else {
       response.sendStatus(200);
+    }
+  });
+});
+
+router.post('/join', function(request, response) {
+  Trip.joinTrip(request, function(err, message){
+    if(err) {
+      console.log(err);
+      response.sendStatus(500)
+    } else {
+      response.send(message);
     }
   });
 });

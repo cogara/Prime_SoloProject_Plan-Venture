@@ -1,0 +1,123 @@
+/* Blue: rgb(27,150,254), 1b96fe */
+/* yellow: rgb(255,243,0), fff300 */
+/* green: rgb(60,100,60), #3C643C */
+/* red: rgb(185,6,0), b90600 */
+/* brown: rgb(120,72,0), 784800 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(rgba(0,0,0,1) 0%, rgba(0,0,0,.7) 4%, rgba(0,0,0,.3) 10%, rgba(255,255,255,.3) 100%), url('http://pre08.deviantart.net/1e40/th/pre/i/2010/128/a/5/seamless_dirt_texture_by_hhh316.jpg');
+  background-repeat: repeat-y, repeat;
+  background-position: 0 150px;
+  background-size: 100% 100vh, auto;
+}
+
+a {
+  color: #fff300;
+}
+.nav-menu {
+  position: relative;
+  top: -50px;
+}
+
+.nav-list {
+  position: absolute;
+  left: 0;
+}
+
+.nav-list li {
+  display: inline-block;
+  padding: 0 10px;
+
+}
+
+.logout {
+  position: absolute;
+  right: 0;
+  /*float: right;*/
+}
+
+.header {
+  box-shadow:
+    0 2px 0 0 #b90600,
+    0 6px 0 0 #fff300,
+    0 8px 0 0 #1b96fe;
+  background: url('../assets/imgs/logo.png'), linear-gradient(rgba(0,60,0,.5) 0%, rgba(0,60,0,.5) 100%), url('../assets/imgs/header-bg.png');
+  /*background-color: rgb(60,100,60);*/
+  background-repeat: no-repeat, repeat, repeat;
+  background-position: center center;
+  height: 150px;
+  margin: 0 0 8px;
+}
+
+.content {
+  color: white;
+  padding: 20px;
+}
+.dashboard {
+  text-align: center;
+  clear: both;
+}
+
+.trip-container {
+  background-color: rgba(255,255,255,.2);
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.trip-nav {
+  width: 100%;
+  max-width: 800px;
+  /*border: 1px solid red;*/
+  margin: 0 auto;
+}
+
+.trip-nav-list {
+  text-align: left;
+}
+
+.trip-nav-list li {
+  background-color: rgba(255,255,255,.2);
+  display: inline-block;
+  padding: 10px;
+  margin-right: 2px;
+  cursor: pointer;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.trip-box {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  background-color: rgba(255,255,255,.4);
+  margin: 10px;
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.trip-box:hover {
+  background-color: rgba(255,255,255,.8);
+  position: relative;
+  top: 3px;
+  transition: all .2s;
+}
+
+.trip-member {
+  list-style-position: inside;
+}
+
+.equipment {
+  display: inline-block;
+  width: 45%;
+  margin: 10px auto;
+}

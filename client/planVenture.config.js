@@ -53,6 +53,12 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'CreateTripController',
       controllerAs: 'create'
     })
+    .state('dashboard.joinTrip', {
+      url: '/join',
+      templateUrl: '/views/joinTrip.html',
+      controller: 'JoinTripController',
+      controllerAs: 'join'
+    })
     .state('route1', {
       url: '/route1',
       templateUrl: '/views/state1.html'

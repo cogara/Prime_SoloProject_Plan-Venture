@@ -92,7 +92,6 @@ function create(username, password, callback) {
 }
 
 function getTrips(id, callback) {
-  console.log('Getting Trips');
   pool.connect(function(err, client, done){
     if(err){
       done();

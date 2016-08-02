@@ -1,10 +1,18 @@
-<h3>Trip Name: {{dash.currentTripName}}</h3>
-<a ui-sref="dashboard.tripDisplay.tripOverview">Overview</a>
-<a ui-sref="dashboard.tripDisplay.tripEquipment">Equipment</a>
-<a ui-sref="dashboard.tripDisplay.tripMenu">Menu</a>
-<a ui-sref="dashboard.tripDisplay.tripPrint">Print</a>
-<br />
-<div ui-view>
+<div class="trip-nav">
+  <ul class="trip-nav-list">
+    <li ui-sref="dashboard.tripDisplay.tripOverview">Overview</li>
+    <li ui-sref="dashboard.tripDisplay.tripEquipment">Equipment</li>
+    <li ui-sref="dashboard.tripDisplay.tripMenu">Menu</li>
+    <li ui-sref="dashboard.tripDisplay.tripPrint">Print</li>
+  </ul>
 </div>
 
-<a ui-sref="dashboard">Back</a>
+<div class="trip-container">
+  <div class="trip-info">
+    <h3>Trip Name: {{dash.currentTripName}}</h3>
+    <br />
+    <div ui-view></div>
+
+    <a ui-sref="dashboard" class="clear">Back</a>
+  </div>
+</div>

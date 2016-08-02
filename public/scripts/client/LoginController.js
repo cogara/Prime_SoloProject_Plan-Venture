@@ -6,7 +6,7 @@ angular
   .module('planVentureApp')
   .controller('LoginController', LoginController)
 
-  function LoginController($http, $state) {
+  function LoginController($http, $state, DataService) {
     var vm = this;
     vm.testing = 'this is a test';
 

@@ -1,6 +1,10 @@
-Date: 1/1/2017
-Location: Somewhere
+<div class="trip-overview">
 
-<ul>Users
-  <li ng-repeat="user in dash.tripUsers">{{user.username}}</li>
-</ul>
+  Date: {{dash.data.tripInfo.date}} <br />
+  Location: {{dash.data.tripInfo.location}} <br />
+  Nights: {{dash.data.tripInfo.duration}} <br />
+  <ul>Members:
+    <li class="trip-member" ng-repeat="user in dash.data.tripUsers">{{user.username}}</li>
+  </ul>
+
+</div>
