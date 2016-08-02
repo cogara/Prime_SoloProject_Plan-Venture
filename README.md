@@ -12,8 +12,8 @@ Plan+Venture is a full-stack web application to organize camping and backpacking
 + HTML
 + CSS
 + JavaScript
-+ Node.js
++ NodeJS
 + Express
 + Passport
-+ Angular.js
++ AngularJS
 + PostgreSQL

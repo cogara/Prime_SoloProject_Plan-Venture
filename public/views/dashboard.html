@@ -1,0 +1,7 @@
+<div ui-view>
+  <h1>dashboard!</h1>
+  <div>
+    <div ng-repeat="trip in dash.trips" ng-click="dash.goToTrip(trip.id, trip.trip_name)"><a href="#">{{trip.trip_name}}</a></div><br />
+  </div>
+  <a ui-sref="dashboard.createTrip">Create Trip!</a>
+</div>
