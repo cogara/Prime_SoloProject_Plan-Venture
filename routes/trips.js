@@ -69,4 +69,26 @@ router.post('/join', function(request, response) {
   });
 });
 
+router.post('/add/pe/:id', function(request, response) {
+  Trip.addPersonalEquipment(request, function(err, message){
+    if(err) {
+      console.log(err);
+      response.sendStatus(500)
+    } else {
+      response.send(message);
+    }
+  });
+});
+
+router.post('/add/ge/:id', function(request, response) {
+  Trip.addGroupEquipment(request, function(err, message){
+    if(err) {
+      console.log(err);
+      response.sendStatus(500)
+    } else {
+      response.send(message);
+    }
+  });
+});
+
 module.exports = router;

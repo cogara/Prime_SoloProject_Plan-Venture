@@ -150,9 +150,50 @@ function joinTrip(request, callback) {
   })
 }
 
+function addPersonalEquipment(request, callback) {
+  var tripId = request.params.id;
+  var userId = request.user.id;
+  var equipmentName = request.body.equipmentName;
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('INSERT INTO trip_equipment (trip_id, equipment, responsible) VALUES ($1, $2, $3)', [tripId, equipmentName, userId], function(err){
+      if(err){
+        done(err);
+        return callback(err)
+      }
+      done();
+      return callback(null, {message: 'equipment added'});
+    });
+  });
+}
+
+function addGroupEquipment(request, callback) {
+  var tripId = request.params.id;
+  var equipmentName = request.body.equipmentName;
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('INSERT INTO trip_equipment (trip_id, equipment, is_group) VALUES ($1, $2, $3)', [tripId, equipmentName, true], function(err){
+      if(err){
+        done(err);
+        return callback(err)
+      }
+      done();
+      return callback(null, {message: 'equipment added'});
+    });
+  });
+}
+
 module.exports = {
   getOverview: getOverview,
   getGroupEquipment: getGroupEquipment,
   newTrip: newTrip,
-  joinTrip: joinTrip
+  joinTrip: joinTrip,
+  addPersonalEquipment: addPersonalEquipment,
+  addGroupEquipment: addGroupEquipment
 };

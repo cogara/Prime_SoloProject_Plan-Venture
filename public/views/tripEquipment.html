@@ -1,13 +1,15 @@
 <div class="equipment">
-  Add Personal: <input type="text" ng-model="equip.addPE"><button>Add</button>
+  Add Personal: <input type="text" ng-model="equip.personalEquipment"><button ng-click="equip.addPE(dash.currentTripId, dash.currentTripName)">Add PE</button>
   <ul>Personal Equipment
-    <li ng-repeat="equipment in dash.personalEquipment">{{equipment.equipment}}</li>
+    <li ng-repeat="equipment in dash.data.personalEquipment">{{equipment.equipment}}</li>
   </ul>
 </div>
 
 <div class="equipment">
-  Add Group: <input type="text" ng-model="equip.addGE"><button>Add</button>
+  Add Group: <input type="text" ng-model="equip.groupEquipment"><button ng-click="equip.addGE(dash.currentTripId, dash.currentTripName)">Add GE</button>
   <ul>Group Equipment
-    <li ng-repeat="equipment in dash.groupEquipment">{{equipment.equipment}} responsible: {{equipment.username}}</li>
+    <li ng-repeat="equipment in dash.data.groupEquipment">{{equipment.equipment}} <span ng-if="equipment.username">Claimed: {{equipment.username}}</span><span ng-if="!equipment.username">Unclaimed</span></li>
   </ul>
+
 </div>
+<div style="clear: both;"></div>

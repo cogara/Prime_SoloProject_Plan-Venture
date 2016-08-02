@@ -118,6 +118,7 @@ a {
 
 .equipment {
   display: inline-block;
+  float: left;
   width: 45%;
   margin: 10px auto;
 }
