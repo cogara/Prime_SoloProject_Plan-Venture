@@ -7,7 +7,7 @@
   <span class="logout">Logout</span>
 </div>
 <div class="clear dashboard" ui-view>
-  <h1>dashboard!</h1>
+  <h1>Hello {{dash.data.currentUser.username}}!</h1>
   <div class="trip-display">
     <div class="trip-box" ng-repeat="trip in dash.data.tripList" ng-click="dash.goToTrip(trip.id, trip.trip_name)">{{trip.trip_name}}</div><br />
   </div>
