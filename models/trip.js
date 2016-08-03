@@ -137,17 +137,35 @@ function joinTrip(request, callback) {
                   done();
                   return callback(err);
                 }
-                done();
-                return callback(null, {message: 'User Added'});
-              })
+                client.query('SELECT * FROM default_equipment WHERE user_id=$1', [request.user.id], function(err, equipment){
+                  if(err){
+                    console.log(err);
+                    done();
+                    return callback(err);
+                  }
+                  if(equipment.rows[0]) {
+                    console.log('check rows', equipment.rows);
+                    for (var i = 0; i < equipment.rows.length; i++) {
+                      client.query('INSERT INTO trip_equipment (trip_id, equipment, responsible) VALUES ($1, $2, $3)', [trip.rows[0].id, equipment.rows[i].equipment, request.user.id], function(err){
+                        if(err){
+                          console.log('loop error', err);
+                          done();
+                          return callback(err);
+                        }
+                      });
+                    }
+                  }
+                  done();
+                  console.log('passed the loop');
+                  callback(null, {message: 'User Added'});
+                });
+              });
             }
-          })
+          });
         }
-
-
-      })
-    })
-  })
+      });
+    });
+  });
 }
 
 function addPersonalEquipment(request, callback) {

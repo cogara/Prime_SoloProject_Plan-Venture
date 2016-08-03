@@ -61,9 +61,9 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('dashboard.preferences', {
       url: '/preferences',
-      templateUrl: '/views/preferences.html'
-      // controller: 'UserPrefController',
-      // controllerAs: 'user'
+      templateUrl: '/views/preferences.html',
+      controller: 'UserPrefController',
+      controllerAs: 'user'
     });
 
   $locationProvider.html5Mode(true);

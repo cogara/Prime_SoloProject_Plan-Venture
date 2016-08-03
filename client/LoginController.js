@@ -1,6 +1,6 @@
 (function() {
 
-LoginController.$inject = ['$http', '$state'];
+LoginController.$inject = ['$http', '$state', 'DataService'];
 
 angular
   .module('planVentureApp')
@@ -10,7 +10,7 @@ angular
     var vm = this;
     vm.username = 'test';
     vm.password = '123';
-
+    vm.getCurrentUser = DataService.getCurrentUser;
     vm.login = login;
 
     function login() {
@@ -21,6 +21,7 @@ angular
     }
 
     function loginSuccess(response) {
+      vm.getCurrentUser(response.data);
       $state.go('dashboard');
     }
 

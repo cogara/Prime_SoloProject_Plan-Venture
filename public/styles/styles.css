@@ -47,7 +47,7 @@ a {
     0 2px 0 0 #b90600,
     0 6px 0 0 #fff300,
     0 8px 0 0 #1b96fe;
-  background: url('../assets/imgs/logo.png'), linear-gradient(rgba(0,60,0,.5) 0%, rgba(0,60,0,.5) 100%), url('../assets/imgs/header-bg.png');
+  background: url('../assets/imgs/logo2.png'), linear-gradient(rgba(0,60,0,.5) 0%, rgba(0,60,0,.5) 100%), url('../assets/imgs/header-bg.png');
   /*background-color: rgb(60,100,60);*/
   background-repeat: no-repeat, repeat, repeat;
   background-position: center center;

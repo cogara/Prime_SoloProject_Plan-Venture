@@ -8,7 +8,10 @@ router.get('/', function(request, response) {
 })
 
 router.get('/success', function(request, response) {
-  response.sendStatus(200);
+  var user = {};
+  user.username = request.user.username;
+  user.email = request.user.email;
+  response.send(user);
 })
 router.get('/failure', function(request, response) {
   console.log('Failure');

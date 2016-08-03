@@ -1,15 +1,12 @@
 <div class="trip-container">
   <h3>User Preferences</h3><br />
-  <p>Username: _______</p>
-  <p>Email: Add email</p>
-  <p>Phone: add phone</p>
+  <p>Username: {{user.data.currentUser.username}}</p>
+  <p ng-if="user.data.currentUser.email">Email: {{user.data.currentUser.email}}</p>
+  <p ng-if="!user.data.currentUser.email">Add Email</p>
+  <p>Add phone</p>
   <br />
   Default Gear:
   <ul>
-    <li>item</li>
-    <li>item</li>
-    <li>item</li>
-    <li>item</li>
-    <li>item</li>
+    <li ng-repeat="equipment in user.defaultEquipment">{{equipment.equipment}}</li>
   </ul>
 </div>

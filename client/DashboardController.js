@@ -11,6 +11,9 @@ angular
     vm.goToTrip = goToTrip;
     vm.data = DataService.data;
     vm.getOverview = DataService.getOverview;
+    vm.getTrips = DataService.getTrips;
+
+    vm.getTrips();
 
     function goToTrip(trip_id, trip_name) {
       vm.currentTripId = trip_id;

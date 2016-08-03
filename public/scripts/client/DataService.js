@@ -10,6 +10,10 @@ angular
     var data = {};
 
 
+    function getCurrentUser(user) {
+      data.currentUser = user;
+    }
+
     function getTrips(){
       $http.get('/trips').then(function(response){
         data.tripList = response.data
@@ -52,13 +56,14 @@ angular
       console.log('HTTP Request Failed');
     }
 
-    getTrips();
+    // getTrips();
     return {
       data: data,
       getTrips: getTrips,
       getOverview: getOverview,
       httpGetPE: httpGetPE,
-      httpGetGE: httpGetGE
+      httpGetGE: httpGetGE,
+      getCurrentUser: getCurrentUser
     }
   }
 

@@ -12,6 +12,7 @@ var User = require('./models/user.js');
 var register = require('./routes/register.js');
 var login = require('./routes/login.js');
 var trips = require('./routes/trips.js');
+var users = require('./routes/users.js');
 var index = require('./routes/index');
 
 var app = express();
@@ -76,6 +77,7 @@ app.use('/', index);
 app.use('/register', register);
 app.use('/login', login);
 app.use('/trips', trips);
+app.use('/users', users);
 
 //server start
 var port = process.env.PORT || 3000;

@@ -125,11 +125,31 @@ function getPersonalEquipment(userId, tripId, callback) {
   });
 }
 
+function getDefaultEquipment(userId, callback) {
+  pool.connect(function(err, client, done) {
+    if(err){
+      console.log(err);
+      done();
+      return callback(err);
+    }
+    client.query('SELECT * FROM default_equipment WHERE user_id=$1', [userId],function(err, equipment){
+      if(err){
+        console.log(err);
+        done();
+        return callback(err);
+      }
+      done();
+      return callback(null, equipment.rows);
+    })
+  })
+}
+
 module.exports = {
   findByUsername: findByUsername,
   findById: findById,
   create: create,
   passwordCheck: passwordCheck,
   getTrips: getTrips,
-  getPersonalEquipment: getPersonalEquipment
+  getPersonalEquipment: getPersonalEquipment,
+  getDefaultEquipment: getDefaultEquipment
 };
