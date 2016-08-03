@@ -144,6 +144,47 @@ function getDefaultEquipment(userId, callback) {
   })
 }
 
+function addDefaultEquipment(userId, equipment, callback) {
+  console.log(equipment);
+  pool.connect(function(err, client, done){
+    if(err){
+      console.log(err);
+      done();
+      return callback(err);
+    }
+    client.query('INSERT INTO default_equipment (user_id, equipment) VALUES ($1, $2)', [userId, equipment.equipmentName], function(err, result){
+      if(err){
+        console.log(err);
+        done();
+        return callback(err);
+      }
+      done();
+      return callback(null);
+    })
+  })
+}
+
+function removeDefaultEquipment(equipment_id, callback) {
+  console.log('Equipment ID:', equipment_id);
+  pool.connect(function(err, client, done){
+    if(err){
+      console.log(err);
+      done();
+      return callback(err);
+    }
+    client.query('DELETE FROM default_equipment WHERE id=$1', [equipment_id], function(err, result){
+      if(err){
+        console.log(err);
+        done();
+        return callback(err);
+      }
+      console.log('removed item');
+      done();
+      return callback(null);
+    })
+  })
+}
+
 module.exports = {
   findByUsername: findByUsername,
   findById: findById,
@@ -151,5 +192,7 @@ module.exports = {
   passwordCheck: passwordCheck,
   getTrips: getTrips,
   getPersonalEquipment: getPersonalEquipment,
-  getDefaultEquipment: getDefaultEquipment
+  getDefaultEquipment: getDefaultEquipment,
+  addDefaultEquipment: addDefaultEquipment,
+  removeDefaultEquipment: removeDefaultEquipment
 };

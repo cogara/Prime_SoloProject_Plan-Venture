@@ -13,4 +13,30 @@ router.get('/defaultEquip', function(request, response) {
   });
 });
 
+router.post('/addEquip', function(request, response) {
+  User.addDefaultEquipment(request.user.id, request.body, function(err) {
+    if(err){
+      console.log(err);
+      response.sendStatus(500);
+    } else {
+      response.sendStatus(200);
+    }
+  });
+});
+
+router.delete('/remEquip/:id', function(request, response) {
+  if(!request.user) {
+    response.sendStatus(500);
+  } else {
+    User.removeDefaultEquipment(request.params.id, function(err) {
+      if(err){
+        console.log(err);
+        response.sendStatus(500);
+      } else {
+        response.sendStatus(200);
+      }
+    });
+  }
+});
+
 module.exports = router;

@@ -8,13 +8,14 @@ router.get('/', function(request, response) {
 })
 
 router.get('/success', function(request, response) {
+  console.log('User logged in:',request.user, new Date());
   var user = {};
   user.username = request.user.username;
   user.email = request.user.email;
   response.send(user);
 })
 router.get('/failure', function(request, response) {
-  console.log('Failure');
+  console.log('Login Failure', new Date());
   response.sendStatus(500);
 })
 

@@ -2,12 +2,15 @@
 <html ng-app="planVentureApp">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
     <script src="vendor/angular/angular.min.js" charset="utf-8"></script>
     <script src="vendor/angular-ui-router/release/angular-ui-router.min.js" charset="utf-8"></script>
     <script src="scripts/client/_planVenture.module.js" charset="utf-8"></script>
     <script src="scripts/client/planVenture.config.js" charset="utf-8"></script>
     <script src="scripts/client/DataService.js" charset="utf-8"></script>
+    <script src="scripts/client/UserService.js" charset="utf-8"></script>
+    <script src="scripts/client/EquipmentService.js" charset="utf-8"></script>
     <script src="scripts/client/CreateTripController.js" charset="utf-8"></script>
     <script src="scripts/client/JoinTripController.js" charset="utf-8"></script>
     <script src="scripts/client/RegisterController.js" charset="utf-8"></script>
@@ -30,8 +33,6 @@
     </div>
     <div class="content">
       <div ui-view></div>
-
-
     </div>
   </body>
 </html>

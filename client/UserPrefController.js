@@ -1,29 +1,24 @@
 (function() {
 
-UserPrefController.$inject = ['$http', '$state', 'DataService'];
+UserPrefController.$inject = ['$http', '$state', 'EquipmentService'];
 
 angular
   .module('planVentureApp')
   .controller('UserPrefController', UserPrefController)
 
-  function UserPrefController($http, $state, DataService) {
+  function UserPrefController($http, $state, EquipmentService) {
     var vm = this;
 
-    vm.data = DataService.data;
+    vm.equipData = EquipmentService.data;
+    vm.getDefaultEquipment = EquipmentService.getDefaultEquipment;
+    vm.addDefaultEquipment = EquipmentService.addDefaultEquipment;
+    vm.removeDefaultEquipment = EquipmentService.removeDefaultEquipment;
+    vm.clearForm = clearForm;
 
-
-
-    function defaultEquipment() {
-      $http.get('/users/defaultEquip').then(defaultEquipSuccess, handleFailure);
+    function clearForm() {
+      vm.equipmentName = null;
     }
 
-    function defaultEquipSuccess(response) {
-      vm.defaultEquipment = response.data;
-    }
-
-    function handleFailure() {
-      console.log('HTTP Request Failed');
-    }
-    defaultEquipment();
+    vm.getDefaultEquipment();
   }//end UserPrefController
 })();

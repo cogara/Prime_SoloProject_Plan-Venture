@@ -1,12 +1,19 @@
 <div class="trip-container">
   <h3>User Preferences</h3><br />
-  <p>Username: {{user.data.currentUser.username}}</p>
-  <p ng-if="user.data.currentUser.email">Email: {{user.data.currentUser.email}}</p>
-  <p ng-if="!user.data.currentUser.email">Add Email</p>
+  <p>Username: {{dash.userData.currentUser.username}}</p>
+  <p ng-if="dash.userData.currentUser.email">Email: {{dash.userData.currentUser.email}}</p>
+  <p ng-if="!dash.userData.currentUser.email">Add Email</p>
   <p>Add phone</p>
   <br />
   Default Gear:
   <ul>
-    <li ng-repeat="equipment in user.defaultEquipment">{{equipment.equipment}}</li>
+    <li ng-repeat="equipment in user.equipData.defaultEquipment">
+      {{equipment.equipment}}
+      <button class="btn" ng-click="user.removeDefaultEquipment(equipment)">remove</button>
+    </li>
+    <li>
+      <input type="text" ng-model="user.equipmentName" placeholder="Add Default Equipment">
+    </li>
+    <li ng-if="user.equipmentName"><button class="btn" ng-click="user.addDefaultEquipment({equipmentName: user.equipmentName}); user.clearForm()">Add</button></li>
   </ul>
 </div>

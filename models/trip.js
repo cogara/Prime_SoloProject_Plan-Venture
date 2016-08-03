@@ -44,7 +44,7 @@ function getGroupEquipment(tripId, callback) {
       done();
       return callback(err);
     }
-    client.query('SELECT trip_id, equipment, username, users.id as user_id FROM trip_equipment LEFT OUTER JOIN users ON trip_equipment.responsible = users.id WHERE trip_id=$1 AND is_group=TRUE', [tripId], function(err, equipment){
+    client.query('SELECT trip_equipment.id, trip_id, equipment, username, users.id as user_id FROM trip_equipment LEFT OUTER JOIN users ON trip_equipment.responsible = users.id WHERE trip_id=$1 AND is_group=TRUE', [tripId], function(err, equipment){
       if(err){
         done(err);
         return callback(err)
@@ -56,8 +56,6 @@ function getGroupEquipment(tripId, callback) {
 }
 
 function newTrip(request, callback) {
-  console.log(request.body);
-  console.log(request.user);
   var tripName = request.body.tripName;
   var organizerId = request.user.id;
   var tripDate = request.body.tripDate
@@ -74,7 +72,6 @@ function newTrip(request, callback) {
         done();
         return callback(err);
       }
-      console.log('Access Code', hash);
       client.query('INSERT INTO trips (trip_name, organizer_id, date, location, duration, access_code) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, trip_name', [tripName, organizerId, tripDate, tripLocation, tripDuration, hash], function(err, trip){
         if(err){
           done(err);
@@ -85,8 +82,24 @@ function newTrip(request, callback) {
             done(err);
             return callback(err)
           }
-          done();
-          callback(null, trip.rows);
+          client.query('SELECT * FROM default_equipment WHERE user_id=$1', [request.user.id], function(err, equipment){
+            if(err){
+              console.log(err);
+              done();
+              return callback(err);
+            }
+            for (var i = 0; i < equipment.rows.length; i++) {
+              client.query('INSERT INTO trip_equipment (trip_id, equipment, responsible) VALUES ($1, $2, $3)', [trip.rows[0].id, equipment.rows[i].equipment, request.user.id], function(err) {
+                if(err) {
+                  console.log('error in loop', err);
+                  done();
+                  return callback(err);
+                }
+              });
+            }
+            done();
+            callback(null, trip.rows);
+          })
         });
       });
     });
@@ -111,7 +124,7 @@ function joinTrip(request, callback) {
       }
       client.query('SELECT * FROM trip_assignments WHERE trip_id=$1 AND user_id=$2', [trip.rows[0].id, request.user.id], function(err, users){
         if(err) {
-          console.log('line 116', err);
+          console.log(err);
           done();
           return callback(err);
         }
@@ -144,7 +157,6 @@ function joinTrip(request, callback) {
                     return callback(err);
                   }
                   if(equipment.rows[0]) {
-                    console.log('check rows', equipment.rows);
                     for (var i = 0; i < equipment.rows.length; i++) {
                       client.query('INSERT INTO trip_equipment (trip_id, equipment, responsible) VALUES ($1, $2, $3)', [trip.rows[0].id, equipment.rows[i].equipment, request.user.id], function(err){
                         if(err){
@@ -188,6 +200,23 @@ function addPersonalEquipment(request, callback) {
   });
 }
 
+function removeEquipment(id, callback) {
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('DELETE FROM trip_equipment WHERE id=$1', [id], function(err){
+      if(err){
+        done(err);
+        return callback(err)
+      }
+      done();
+      return callback(null, {message: 'equipment removed'});
+    });
+  });
+}
+
 function addGroupEquipment(request, callback) {
   var tripId = request.params.id;
   var equipmentName = request.body.equipmentName;
@@ -213,5 +242,6 @@ module.exports = {
   newTrip: newTrip,
   joinTrip: joinTrip,
   addPersonalEquipment: addPersonalEquipment,
-  addGroupEquipment: addGroupEquipment
+  addGroupEquipment: addGroupEquipment,
+  removeEquipment: removeEquipment
 };

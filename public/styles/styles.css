@@ -5,15 +5,14 @@
 /* brown: rgb(120,72,0), 784800 */
 
 * {
-  margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  margin: 0;
 }
 
 body {
-  background: linear-gradient(rgba(0,0,0,1) 0%, rgba(0,0,0,.7) 4%, rgba(0,0,0,.3) 10%, rgba(255,255,255,.3) 100%), url('/assets/imgs/bg-img.jpg');
-  background-repeat: repeat-y, repeat;
-  background-position: 0 150px;
+  background: linear-gradient(rgba(0,0,0,1) 0%, rgba(0,0,0,.7) 4%, rgba(0,0,0,.5) 10%, rgba(0,0,0,.1) 40%, transparent 100%), url('/assets/imgs/bg-img.jpg');
+  background-repeat: repeat-x, repeat;
+  background-position: 0 175px;
   background-size: 100% 100vh, auto;
 }
 
@@ -22,24 +21,25 @@ a {
 }
 .nav-menu {
   position: relative;
-  top: -50px;
+  top: -35px;
+  height: 1px;
 }
 
 .nav-list {
-  position: absolute;
-  left: 0;
+  padding-left: 10px;
+  width: 100%;
 }
 
-.nav-list li {
+.nav-list-item {
   display: inline-block;
-  padding: 0 10px;
-
+  padding: 0 5px;
 }
 
 .logout {
+  color: white;
   position: absolute;
-  right: 0;
-  /*float: right;*/
+  right: 15px;
+  top: 0;
 }
 
 .header {
@@ -50,48 +50,61 @@ a {
   background: url('../assets/imgs/logo2.png'), linear-gradient(rgba(0,60,0,.5) 0%, rgba(0,60,0,.5) 100%), url('../assets/imgs/header-bg.png');
   /*background-color: rgb(60,100,60);*/
   background-repeat: no-repeat, repeat, repeat;
-  background-position: center center;
-  height: 150px;
+  background-position: center 10px;
+  height: 175px;
   margin: 0 0 8px;
 }
 
 .content {
   color: white;
-  padding: 20px;
+  /*padding: 20px;*/
+}
+
+input {
+  color: black;
 }
 .dashboard {
   text-align: center;
-  clear: both;
-}
-
-.trip-container {
-  background-color: rgba(255,255,255,.7);
+  background-color: rgba(255,255,255,.6);
   color: black;
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   padding: 20px;
   margin: 0 auto;
 }
 
+.trip-container {
+  /*background-color: rgba(255,255,255,.7);*/
+  /*color: black;*/
+  /*width: 100%;
+  max-width: 800px;*/
+  /*padding: 20px;*/
+  /*margin: 0 auto;*/
+}
+
 .trip-nav {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   /*border: 1px solid red;*/
   margin: 0 auto;
 }
 
 .trip-nav-list {
+  margin: 0;
+  padding: 0;
   text-align: left;
 }
 
-.trip-nav-list li {
+.trip-nav-item {
   background-color: rgba(255,255,255,.7);
   display: inline-block;
   padding: 10px;
-  margin-right: 2px;
+  margin: 0;
   cursor: pointer;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom: 1px solid rgba(0,0,0,.3);
+  border-right: 1px solid rgba(0,0,0,.3);
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
 }
 
 .trip-box {

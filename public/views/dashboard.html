@@ -1,16 +1,17 @@
 <div class="nav-menu">
   <ul class="nav-list">
-    <li><a ui-sref="dashboard">Home</a></li>
-    <li><a ui-sref="dashboard.preferences">Preferences</a></li>
-    <li><a ui-sref="dashboard">Messages</a></li>
+    <li class="nav-list-item"><a ui-sref="dashboard">Home</a></li>
+    <li class="nav-list-item"><a ui-sref="dashboard.preferences">Preferences</a></li>
+    <li class="nav-list-item"><a ui-sref="dashboard">Messages</a></li>
+    <li class="nav-list-item"><span class="logout">Logout</span></li>
   </ul>
-  <span class="logout">Logout</span>
 </div>
-<div class="clear dashboard" ui-view>
-  <h1>Hello {{dash.data.currentUser.username}}!</h1>
+
+<div class="dashboard" ui-view>
+  <h1>Hello {{dash.userData.currentUser.username}}!</h1>
   <div class="trip-display">
     <div class="trip-box" ng-repeat="trip in dash.data.tripList" ng-click="dash.goToTrip(trip.id, trip.trip_name)">{{trip.trip_name}}</div><br />
   </div>
-  <button ui-sref="dashboard.createTrip">Create Trip!</button>
-  <button ui-sref="dashboard.joinTrip">Join Trip!</button>
+  <button class="btn"  ui-sref="dashboard.createTrip">Create Trip!</button>
+  <button class="btn"  ui-sref="dashboard.joinTrip">Join Trip!</button>
 </div>

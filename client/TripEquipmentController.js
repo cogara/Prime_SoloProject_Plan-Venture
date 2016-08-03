@@ -8,36 +8,39 @@ angular
 
   function TripEquipmentController($http, $state, DataService) {
     var vm = this;
-    vm.addPE = addPE;
-    vm.addGE = addGE;
+    vm.addPersonalEquipment = addPersonalEquipment;
+    vm.addGroupEquipment = addGroupEquipment;
     vm.data = DataService.data;
     vm.getOverview = DataService.getOverview;
-    vm.httpGetPE = DataService.httpGetPE;
-    vm.httpGetGE = DataService.httpGetGE;
-    vm.addPE = addPE;
+    vm.httpGetPersonalEquipment = DataService.httpGetPersonalEquipment;
+    vm.httpGetGroupEquipment = DataService.httpGetGroupEquipment;
+    vm.removeEquipment = removeEquipment;
 
-    function addPE(tripId, tripName) {
+    function addPersonalEquipment(tripId, tripName) {
       vm.currentTripId = tripId;
       vm.currentTripName = tripName;
       var sendData = {};
       sendData.equipmentName = vm.personalEquipment;
-      $http.post('/trips/add/pe/' + tripId, sendData).then(addPeSuccess, httpFailure);
+      $http.post('/trips/add/pe/' + tripId, sendData).then(equipSuccess, httpFailure);
     }
 
-    function addGE(tripId, tripName) {
+    function removeEquipment(equipment, tripId, tripName) {
+      vm.currentTripId = tripId;
+      vm.currentTripName = tripName;
+      $http.delete('/trips/remEquip/' + equipment.id).then(equipSuccess, httpFailure);
+    }
+
+    function addGroupEquipment(tripId, tripName) {
       vm.currentTripId = tripId;
       vm.currentTripName = tripName;
       var sendData = {};
       sendData.equipmentName = vm.groupEquipment;
-      $http.post('/trips/add/ge/' + tripId, sendData).then(addGeSuccess, httpFailure);
+      $http.post('/trips/add/ge/' + tripId, sendData).then(equipSuccess, httpFailure);
     }
 
-    function addPeSuccess(response) {
-      vm.httpGetPE(vm.currentTripId, vm.currentTripName);
-    }
-
-    function addGeSuccess(response) {
-      vm.httpGetGE(vm.currentTripId, vm.currentTripName);
+    function equipSuccess(response) {
+      vm.httpGetPersonalEquipment(vm.currentTripId, vm.currentTripName);
+      vm.httpGetGroupEquipment(vm.currentTripId, vm.currentTripName);
     }
 
     function httpFailure() {

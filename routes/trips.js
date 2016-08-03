@@ -84,11 +84,22 @@ router.post('/add/ge/:id', function(request, response) {
   Trip.addGroupEquipment(request, function(err, message){
     if(err) {
       console.log(err);
-      response.sendStatus(500)
+      response.sendStatus(500);
     } else {
       response.send(message);
     }
   });
 });
+
+router.delete('/remEquip/:id', function(request, response){
+  Trip.removeEquipment(request.params.id, function(err, message){
+    if(err) {
+      console.log(err);
+      response.sendStatus(500);
+    } else {
+      response.sendStatus(200);
+    }
+  })
+})
 
 module.exports = router;

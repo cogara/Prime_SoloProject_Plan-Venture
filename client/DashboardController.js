@@ -1,15 +1,16 @@
 (function() {
 
-DashboardController.$inject = ['$http', '$state', 'DataService'];
+DashboardController.$inject = ['$http', '$state', 'DataService', 'UserService'];
 
 angular
   .module('planVentureApp')
   .controller('DashboardController', DashboardController)
 
-  function DashboardController($http, $state, DataService) {
+  function DashboardController($http, $state, DataService, UserService) {
     var vm = this;
     vm.goToTrip = goToTrip;
     vm.data = DataService.data;
+    vm.userData = UserService.data;
     vm.getOverview = DataService.getOverview;
     vm.getTrips = DataService.getTrips;
 

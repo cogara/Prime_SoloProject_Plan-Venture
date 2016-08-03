@@ -23,15 +23,15 @@ angular
     }
 
     function getOverview(trip_id, trip_name) {
-      httpGetPE(trip_id, trip_name);
-      httpGetGE(trip_id, trip_name);
+      httpGetPersonalEquipment(trip_id, trip_name);
+      httpGetGroupEquipment(trip_id, trip_name);
       httpGetOverview(trip_id, trip_name);
     }
 
-    function httpGetPE(trip_id, trip_name) {
+    function httpGetPersonalEquipment(trip_id, trip_name) {
       $http.get('/trips/pe/' + trip_id).then(personalEquipSuccess, httpFailure);
     }
-    function httpGetGE(trip_id, trip_name) {
+    function httpGetGroupEquipment(trip_id, trip_name) {
       $http.get('/trips/ge/' + trip_id).then(groupEquipSuccess, httpFailure);
     }
     function httpGetOverview(trip_id, trip_name) {
@@ -61,8 +61,8 @@ angular
       data: data,
       getTrips: getTrips,
       getOverview: getOverview,
-      httpGetPE: httpGetPE,
-      httpGetGE: httpGetGE,
+      httpGetPersonalEquipment: httpGetPersonalEquipment,
+      httpGetGroupEquipment: httpGetGroupEquipment,
       getCurrentUser: getCurrentUser
     }
   }
