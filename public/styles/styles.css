@@ -11,7 +11,7 @@
 }
 
 body {
-  background: linear-gradient(rgba(0,0,0,1) 0%, rgba(0,0,0,.7) 4%, rgba(0,0,0,.3) 10%, rgba(255,255,255,.3) 100%), url('http://pre08.deviantart.net/1e40/th/pre/i/2010/128/a/5/seamless_dirt_texture_by_hhh316.jpg');
+  background: linear-gradient(rgba(0,0,0,1) 0%, rgba(0,0,0,.7) 4%, rgba(0,0,0,.3) 10%, rgba(255,255,255,.3) 100%), url('/assets/imgs/bg-img.jpg');
   background-repeat: repeat-y, repeat;
   background-position: 0 150px;
   background-size: 100% 100vh, auto;
