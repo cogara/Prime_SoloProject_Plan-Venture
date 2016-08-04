@@ -1,10 +1,10 @@
 <div class="trip-overview">
 
-  Date: {{dash.data.tripInfo.date}} <br />
-  Location: {{dash.data.tripInfo.location}} <br />
-  Nights: {{dash.data.tripInfo.duration}} <br />
+  Date: {{dash.trip.info.shortDate}} <br />
+  Location: {{dash.trip.info.location}} <br />
+  Nights: {{dash.trip.info.duration}} <br />
   <ul>Members:
-    <li class="trip-member" ng-repeat="user in dash.data.tripUsers">{{user.username}}</li>
+    <li class="trip-member" ng-repeat="user in dash.trip.users">{{user.username}}</li>
   </ul>
 
 </div>

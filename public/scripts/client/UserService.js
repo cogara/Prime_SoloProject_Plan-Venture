@@ -9,7 +9,6 @@ angular
   function UserService($http, $state) {
     var data = {};
 
-
     function getCurrentUser(user) {
       console.log('user service', user);
       data.currentUser = user;

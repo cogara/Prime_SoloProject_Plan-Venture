@@ -1,56 +1,53 @@
 (function() {
 
-DataService.$inject = ['$http', '$state'];
+TripService.$inject = ['$http', '$state'];
 
 angular
   .module('planVentureApp')
-  .factory('DataService', DataService);
+  .factory('TripService', TripService);
 
-  function DataService($http, $state) {
+  function TripService($http, $state) {
     var data = {};
 
-
-    function getCurrentUser(user) {
-      data.currentUser = user;
-    }
-
     function getTrips(){
-      $http.get('/trips').then(function(response){
-        data.tripList = response.data
-      }, function(){
-        console.log('Error in Data Service');
-      });
+      return $http.get('/trips').then(getTripsSuccess, httpFailure);
     }
 
-    function getOverview(trip_id, trip_name) {
-      httpGetPersonalEquipment(trip_id, trip_name);
-      httpGetGroupEquipment(trip_id, trip_name);
-      httpGetOverview(trip_id, trip_name);
+    function getPersonalEquipment(tripId) {
+      return $http.get('/trips/pe/' + tripId).then(personalEquipSuccess, httpFailure);
+    }
+    function getGroupEquipment(tripId) {
+      return $http.get('/trips/ge/' + tripId).then(groupEquipSuccess, httpFailure);
+    }
+    function getOverview(tripId) {
+      return $http.get('/trips/info/' + tripId).then(getTripOverview, httpFailure);
     }
 
-    function httpGetPersonalEquipment(trip_id, trip_name) {
-      $http.get('/trips/pe/' + trip_id).then(personalEquipSuccess, httpFailure);
-    }
-    function httpGetGroupEquipment(trip_id, trip_name) {
-      $http.get('/trips/ge/' + trip_id).then(groupEquipSuccess, httpFailure);
-    }
-    function httpGetOverview(trip_id, trip_name) {
-      $http.get('/trips/info/' + trip_id).then(getTripOverview, httpFailure);
+    function getTripsSuccess(response) {
+      data.tripList = response.data;
+      for (var i = 0; i < data.tripList.length; i++) {
+        data.tripList[i].shortDate = new Date(data.tripList[i].date).toLocaleDateString('en-US');
+      }
+      return data.tripList;
     }
 
     function getTripOverview(response) {
-      // console.log(response.data);
-      data.tripUsers = response.data.users;
-      data.tripInfo = response.data.info[0];
-      console.log(data.tripInfo);
-      data.tripInfo.date = new Date(data.tripInfo.date).toLocaleDateString('en-US');
+      var tripData = {}
+      tripData.users = response.data.users;
+      tripData.info = response.data.info[0];
+      tripData.info.shortDate = new Date(tripData.info.date).toLocaleDateString('en-US');
+
+      return tripData;
       $state.go('dashboard.tripDisplay.tripOverview');
     }
+
     function personalEquipSuccess(response){
       data.personalEquipment = response.data;
+      return response.data;
     }
     function groupEquipSuccess(response){
       data.groupEquipment = response.data;
+      return response.data;
     }
     function httpFailure(){
       console.log('HTTP Request Failed');
@@ -60,10 +57,10 @@ angular
     return {
       data: data,
       getTrips: getTrips,
-      getOverview: getOverview,
-      httpGetPersonalEquipment: httpGetPersonalEquipment,
-      httpGetGroupEquipment: httpGetGroupEquipment,
-      getCurrentUser: getCurrentUser
+      // getOverview: getOverview,
+      getPersonalEquipment: getPersonalEquipment,
+      getGroupEquipment: getGroupEquipment,
+      getOverview: getOverview
     }
   }
 

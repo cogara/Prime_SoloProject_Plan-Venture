@@ -11,28 +11,24 @@ angular
 
 
     function addDefaultEquipment(data) {
-      $http.post('/users/addEquip', data).then(editEquipSuccess, handleFailure);
+      return $http.post('/users/addEquip', data).then(editEquipSuccess, handleFailure);
     }
 
     function removeDefaultEquipment(data) {
       console.log(data.id);
-      $http.delete('/users/remEquip/' + data.id).then(editEquipSuccess, handleFailure);
+      return $http.delete('/users/remEquip/' + data.id).then(editEquipSuccess, handleFailure);
     }
 
     function getDefaultEquipment() {
-      $http.get('/users/defaultEquip').then(defaultEquipSuccess, handleFailure);
+      return $http.get('/users/defaultEquip').then(defaultEquipSuccess, handleFailure);
     }
 
     function editEquipSuccess(response) {
-      getDefaultEquipment();
-    }
-
-    function editEquipSuccess(response) {
-      getDefaultEquipment();
+      return;
     }
 
     function defaultEquipSuccess(response) {
-      data.defaultEquipment = response.data;
+      return response.data
     }
 
     function handleFailure() {

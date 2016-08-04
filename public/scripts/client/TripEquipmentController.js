@@ -1,19 +1,19 @@
 (function() {
 
-TripEquipmentController.$inject = ['$http', '$state', 'DataService'];
+TripEquipmentController.$inject = ['$http', '$state', 'TripService'];
 
 angular
   .module('planVentureApp')
   .controller('TripEquipmentController', TripEquipmentController)
 
-  function TripEquipmentController($http, $state, DataService) {
+  function TripEquipmentController($http, $state, TripService) {
     var vm = this;
     vm.addPersonalEquipment = addPersonalEquipment;
     vm.addGroupEquipment = addGroupEquipment;
-    vm.data = DataService.data;
-    vm.getOverview = DataService.getOverview;
-    vm.httpGetPersonalEquipment = DataService.httpGetPersonalEquipment;
-    vm.httpGetGroupEquipment = DataService.httpGetGroupEquipment;
+    vm.data = TripService.data;
+    vm.getOverview = TripService.getOverview;
+    vm.getPersonalEquipment = TripService.getPersonalEquipment;
+    vm.getGroupEquipment = TripService.getGroupEquipment;
     vm.removeEquipment = removeEquipment;
 
     function addPersonalEquipment(tripId, tripName) {
@@ -39,8 +39,8 @@ angular
     }
 
     function equipSuccess(response) {
-      vm.httpGetPersonalEquipment(vm.currentTripId, vm.currentTripName);
-      vm.httpGetGroupEquipment(vm.currentTripId, vm.currentTripName);
+      vm.getPersonalEquipment(vm.currentTripId, vm.currentTripName);
+      vm.getGroupEquipment(vm.currentTripId, vm.currentTripName);
     }
 
     function httpFailure() {

@@ -1,15 +1,15 @@
 (function() {
 
-JoinTripController.$inject = ['$http', '$state', 'DataService'];
+JoinTripController.$inject = ['$http', '$state', 'TripService'];
 
 angular
   .module('planVentureApp')
   .controller('JoinTripController', JoinTripController)
 
-  function JoinTripController($http, $state, DataService) {
+  function JoinTripController($http, $state, TripService) {
     var vm = this;
     vm.joinTrip = joinTrip;
-    vm.getTrips = DataService.getTrips;
+    vm.getTrips = TripService.getTrips;
 
     function joinTrip(){
       var sendData = {};

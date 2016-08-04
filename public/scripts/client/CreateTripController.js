@@ -1,14 +1,14 @@
 (function() {
 
-CreateTripController.$inject = ['$http', '$state', 'DataService'];
+CreateTripController.$inject = ['$http', '$state', 'TripService'];
 
 angular
   .module('planVentureApp')
   .controller('CreateTripController', CreateTripController)
 
-  function CreateTripController($http, $state, DataService) {
+  function CreateTripController($http, $state, TripService) {
     var vm = this;
-    vm.getTrips = DataService.getTrips;
+    vm.getTrips = TripService.getTrips;
     vm.createTrip = createTrip;
 
     function createTrip(){

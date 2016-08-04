@@ -12,6 +12,7 @@ router.get('/success', function(request, response) {
   var user = {};
   user.username = request.user.username;
   user.email = request.user.email;
+  user.phone = request.user.phone;
   response.send(user);
 })
 router.get('/failure', function(request, response) {

@@ -7,13 +7,18 @@
   <br />
   Default Gear:
   <ul>
-    <li ng-repeat="equipment in user.equipData.defaultEquipment">
-      {{equipment.equipment}}
-      <button class="btn" ng-click="user.removeDefaultEquipment(equipment)">remove</button>
-    </li>
     <li>
       <input type="text" ng-model="user.equipmentName" placeholder="Add Default Equipment">
+      <span >
+        <button class="btn btn-primary" ng-click="user.addDefaultEquipment({equipmentName: user.equipmentName})">
+          Add
+        </button>
+      </span>
     </li>
-    <li ng-if="user.equipmentName"><button class="btn" ng-click="user.addDefaultEquipment({equipmentName: user.equipmentName}); user.clearForm()">Add</button></li>
+
+    <li class="default-equipment" ng-repeat="equipment in user.defaultEquipment">
+      {{equipment.equipment}}
+      <button class="btn btn-primary" ng-click="user.removeDefaultEquipment(equipment)">remove</button>
+    </li>
   </ul>
 </div>

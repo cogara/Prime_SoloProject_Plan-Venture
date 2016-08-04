@@ -10,8 +10,16 @@
 <div class="dashboard" ui-view>
   <h1>Hello {{dash.userData.currentUser.username}}!</h1>
   <div class="trip-display">
-    <div class="trip-box" ng-repeat="trip in dash.data.tripList" ng-click="dash.goToTrip(trip.id, trip.trip_name)">{{trip.trip_name}}</div><br />
+    <div class="trip-box" ng-repeat="trip in dash.tripList" ng-click="dash.goToTrip(trip.id, trip.trip_name)">
+      <ul>
+        <li><h4>{{trip.trip_name}}</h4></li>
+        <li>Date: {{trip.shortDate}}</li>
+        <li>Nights: {{trip.duration}}</li>
+        <li>Location: {{trip.location}}</li>
+      </ul>
+    </div>
   </div>
-  <button class="btn"  ui-sref="dashboard.createTrip">Create Trip!</button>
-  <button class="btn"  ui-sref="dashboard.joinTrip">Join Trip!</button>
+  <button class="btn btn-primary"  ui-sref="dashboard.createTrip">Create Trip!</button>
+  <button class="btn btn-primary"  ui-sref="dashboard.joinTrip">Join Trip!</button>
+
 </div>
