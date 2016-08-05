@@ -7,7 +7,7 @@ router.get('/', function(request, response) {
 })
 
 router.post('/create', function(request, response){
-  console.log(request.body);
+  console.log('is it this?', request.body);
 })
 
 

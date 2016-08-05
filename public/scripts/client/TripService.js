@@ -1,12 +1,12 @@
 (function() {
 
-TripService.$inject = ['$http', '$state'];
+TripService.$inject = ['$http'];
 
 angular
   .module('planVentureApp')
   .factory('TripService', TripService);
 
-  function TripService($http, $state) {
+  function TripService($http) {
     var data = {};
 
     function getTrips(){
@@ -42,7 +42,6 @@ angular
       console.log('data.trip', data.trip);
 
       return tripData;
-      $state.go('dashboard.tripDisplay.tripOverview');
     }
 
     function personalEquipSuccess(response){

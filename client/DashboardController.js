@@ -11,6 +11,7 @@ angular
     vm.tempProfile = {};
     vm.goToTrip = goToTrip;
     vm.userData = UserService.data;
+    // vm.data = TripService.data;
     vm.addPersonalEquipment = addPersonalEquipment;
     vm.addGroupEquipment = addGroupEquipment;
     vm.removeEquipment = removeEquipment;
@@ -20,15 +21,15 @@ angular
     vm.unclaimEquipment = unclaimEquipment;
     vm.preventClose = preventClose;
 
-    
 
     function getTrips() {
-      console.log('Getting Trips');
       TripService.getTrips().then(function(response){
-        vm.tripList = response;
+        vm.trips = response;
+        console.log(response);
+        console.log('RELOADED!!!');
       }, function(){
-        console.log('error');
-      })
+        console.log('Error');
+      });
     }
 
     function goToTrip(tripId) {
@@ -103,7 +104,6 @@ angular
 
     function overviewSuccess(response) {
       vm.trip = response;
-      console.log(response);
       $state.go('dashboard.tripDisplay.tripOverview');
     }
     function personalEquipSuccess(response) {
