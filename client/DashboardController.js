@@ -8,11 +8,18 @@ angular
 
   function DashboardController($http, $state, TripService, UserService) {
     var vm = this;
+    vm.tempProfile = {};
     vm.goToTrip = goToTrip;
     vm.userData = UserService.data;
+    vm.trips = TripService.data;
     vm.addPersonalEquipment = addPersonalEquipment;
     vm.addGroupEquipment = addGroupEquipment;
     vm.removeEquipment = removeEquipment;
+    vm.claimEquipment = claimEquipment;
+    vm.getUserProfile = getUserProfile;
+    vm.closeProfile = closeProfile;
+    vm.unclaimEquipment = unclaimEquipment;
+
 
     function getTrips() {
       TripService.getTrips().then(function(response){
@@ -22,18 +29,29 @@ angular
       })
     }
 
-    function goToTrip(tripId, tripName) {
-      vm.currentTripId = tripId;
-      vm.currentTripName = tripName;
+    function goToTrip(tripId) {
       TripService.getOverview(tripId).then(overviewSuccess);
       TripService.getPersonalEquipment(tripId).then(personalEquipSuccess);
       TripService.getGroupEquipment(tripId).then(groupEquipSuccess);
     }
 
-    function addPersonalEquipment(tripId) {
-      console.log(vm.personalEquipment);
+    function getUserProfile(index) {
+      console.log(vm.trip.users[index]);
+      vm.tempProfile.username = vm.trip.users[index].username;
+      vm.tempProfile.email = vm.trip.users[index].email;
+      vm.tempProfile.phone = vm.trip.users[index].phone;
+      vm.profileView = true;
+    }
+
+    function closeProfile(){
+      vm.tempProfile = {};
+      vm.profileView = false;
+    }
+
+    function addPersonalEquipment() {
+      console.log('testing trip id', vm.trip.info.id);
       TripService.addPersonalEquipment(vm.personalEquipmentAdd, tripId).then(function() {
-        TripService.getPersonalEquipment(vm.currentTripId).then(personalEquipSuccess);
+        TripService.getPersonalEquipment(vm.trip.info.id).then(personalEquipSuccess);
       }, function() {
         console.log('ERROR');
       });
@@ -47,17 +65,34 @@ angular
       });
     }
 
-    function addGroupEquipment(tripId) {
+    function addGroupEquipment() {
       console.log(vm.groupEquipment);
       TripService.addGroupEquipment(vm.groupEquipmentAdd, tripId).then(function() {
+        TripService.getGroupEquipment(vm.trip.info.id).then(groupEquipSuccess);
+      }, function() {
+        console.log('ERROR on add group');
+      });;
+    }
+
+    function claimEquipment(equipment) {
+      TripService.claimEquipment(equipment).then(function() {
         TripService.getGroupEquipment(vm.currentTripId).then(groupEquipSuccess);
       }, function() {
-        console.log('ERROR');
-      });;
+        console.log('Error on claim');
+      })
+    }
+
+    function unclaimEquipment(equipment) {
+      TripService.unclaimEquipment(equipment).then(function() {
+        TripService.getGroupEquipment(vm.currentTripId).then(groupEquipSuccess);
+      }, function() {
+        console.log('unclaim fail');
+      })
     }
 
     function overviewSuccess(response) {
       vm.trip = response;
+      console.log(response);
       $state.go('dashboard.tripDisplay.tripOverview');
     }
     function personalEquipSuccess(response) {

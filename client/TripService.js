@@ -14,7 +14,6 @@ angular
     }
 
     function getPersonalEquipment(tripId) {
-      console.log('Getting QQ');
       return $http.get('/trips/pe/' + tripId).then(personalEquipSuccess, httpFailure);
     }
     function getGroupEquipment(tripId) {
@@ -43,12 +42,11 @@ angular
     }
 
     function personalEquipSuccess(response){
-      data.personalEquipment = response.data;
-      console.log(response.data);
+      // data.personalEquipment = response.data;
       return response.data;
     }
     function groupEquipSuccess(response){
-      data.groupEquipment = response.data;
+      // data.groupEquipment = response.data;
       return response.data;
     }
 
@@ -58,13 +56,20 @@ angular
     }
 
     function addGroupEquipment(equipment, tripId) {
-      console.log(equipment, tripId);
       return $http.post('/trips/add/ge/' + tripId, {equipmentName: equipment}).then(equipSuccess, httpFailure);
     }
 
     function removeEquipment(equipment) {
       console.log(equipment);
       return $http.delete('/trips/remEquip/' + equipment.id).then(equipSuccess, httpFailure);
+    }
+
+    function unclaimEquipment(equipment) {
+      return $http.put('/trips/unclaimEquip/' + equipment.id).then(equipSuccess, httpFailure);
+    }
+
+    function claimEquipment(equipment) {
+      return $http.put('/trips/claimEquip/' + equipment.id).then(equipSuccess, httpFailure);
     }
 
     function equipSuccess(response) {
@@ -85,7 +90,9 @@ angular
       getOverview: getOverview,
       addPersonalEquipment: addPersonalEquipment,
       addGroupEquipment: addGroupEquipment,
-      removeEquipment: removeEquipment
+      removeEquipment: removeEquipment,
+      claimEquipment: claimEquipment,
+      unclaimEquipment: unclaimEquipment
     }
   }
 

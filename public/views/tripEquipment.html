@@ -1,6 +1,6 @@
 <div class="equipment">
   Add Personal: <input type="text" ng-model="dash.personalEquipmentAdd">
-  <button class="btn btn-primary"  ng-click="dash.addPersonalEquipment(dash.currentTripId)">
+  <button class="btn btn-primary"  ng-click="dash.addPersonalEquipment()">
     Add PE
   </button>
   <ul>Personal Equipment
@@ -12,14 +12,31 @@
 </div>
 
 <div class="equipment">
-  Add Group: <input type="text" ng-model="dash.groupEquipmentAdd"><button class="btn btn-primary"  ng-click="dash.addGroupEquipment(dash.currentTripId)">Add GE</button>
+  Add Group: <input type="text" ng-model="dash.groupEquipmentAdd">
+  <button class="btn btn-primary"  ng-click="dash.addGroupEquipment()">
+    Add GE
+  </button>
   <ul>Group Equipment
-    <li ng-repeat="equipment in dash.groupEquipment">
+    <li ng-repeat="equipment in dash.groupEquipment | orderBy:['equipment','id']">
+
       {{equipment.equipment}}
-      <span ng-if="equipment.username">Claimed: {{equipment.username}}</span>
-      <span ng-if="!equipment.username">Unclaimed [claim]</span>
-      <button class="btn btn-primary" ng-click="dash.removeEquipment(equipment, dash.currentTripId)">remove</button>
+      <span ng-if="equipment.username">
+        ({{equipment.username}})
+      </span>
+      <span ng-if="!equipment.username" class="claim-equipment" ng-click="dash.claimEquipment(equipment)">
+        [claim]
+      </span>
+      <button class="btn btn-primary"
+              ng-click="dash.removeEquipment(equipment, dash.currentTripId)"
+              ng-if="dash.trip.info.organizer_id === dash.userData.currentUser.id">
+        remove
+      </button>
+      <span ng-if="equipment.username === dash.userData.currentUser.username">
+        <button class="btn btn-danger" ng-click="dash.unclaimEquipment(equipment)">Unclaim</button>
+      </span>
     </li>
   </ul>
+
+
 </div>
 <div style="clear: both;"></div>

@@ -43,9 +43,9 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('dashboard.tripDisplay.tripEquipment', {
       url: '/equipment',
-      templateUrl: '/views/tripEquipment.html',
-      controller: 'TripEquipmentController',
-      controllerAs: 'equip'
+      templateUrl: '/views/tripEquipment.html'
+      // controller: 'TripEquipmentController',
+      // controllerAs: 'equip'
     })
     .state('dashboard.createTrip', {
       url: '/create',

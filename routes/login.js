@@ -8,8 +8,9 @@ router.get('/', function(request, response) {
 })
 
 router.get('/success', function(request, response) {
-  console.log('User logged in:',request.user, new Date());
+  console.log('User logged in:',request.user.username, 'at', new Date());
   var user = {};
+  user.id = request.user.id;
   user.username = request.user.username;
   user.email = request.user.email;
   user.phone = request.user.phone;

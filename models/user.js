@@ -185,6 +185,11 @@ function removeDefaultEquipment(equipment_id, callback) {
   })
 }
 
+// function getUserProfile(id, callback) {
+//   findById(id, function(err, user))
+// }
+
+
 module.exports = {
   findByUsername: findByUsername,
   findById: findById,

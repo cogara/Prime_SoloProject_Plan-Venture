@@ -19,7 +19,7 @@ angular
     }
     function joinSuccess(response) {
       vm.getTrips();
-      console.log(response.data);
+      alert(response.data.message);
       $state.go('dashboard');
     }
     function httpFailure() {

@@ -1,44 +1,39 @@
 (function() {
 
-MainController.$inject = ['$http', '$state'];
+MainController.$inject = ['$http', '$state', 'UserService'];
 
 angular
   .module('planVentureApp')
   .controller('MainController', MainController)
 
-  function MainController($http, $state, TripService) {
+  function MainController($http, $state, UserService) {
     var vm = this;
-    vm.testing = 'this is a test';
+    vm.logout = logout;
 
-    vm.registerUser = registerUser;
-    vm.login = login;
-
-    function registerUser() {
-      var sendData = {};
-      sendData.username = vm.username;
-      sendData.password = vm.password;
-      $http.post('/register', sendData).then(registerSuccess, httpFailure);
+    function logout() {
+      $http.get('/logout').then(function(){
+        $state.go('index');
+      }, function(){
+        console.log('logout failed');
+      });
     }
 
-    function login() {
-      var sendData = {};
-      sendData.username = vm.loginUsername;
-      sendData.password = vm.loginPassword;
-      $http.post('/login', sendData).then(loginSuccess, httpFailure);
+    function checkAuth() {
+      $http.get('/currentuser').then(function(response){
+        if(response.data.username){
+          loginSuccess(response);
+        }
+      }, function(){
+        console.log('wrong');
+      });
     }
 
-    function registerSuccess(response) {
-      console.log(response);
-      $state.go('route1');
-    }
-
+    checkAuth();
     function loginSuccess(response) {
-      console.log(response);
+      console.log(response.data);
+      UserService.getCurrentUser(response.data);
       $state.go('dashboard');
     }
 
-    function httpFailure() {
-      console.log('HTTP Request Failed');
-    }
   } //end MainController
 })();

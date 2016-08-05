@@ -102,4 +102,28 @@ router.delete('/remEquip/:id', function(request, response){
   })
 })
 
+router.put('/claimEquip/:id', function(request, response) {
+  Trip.claimEquipment(request.params.id, request.user.id, function(err, message){
+    if(err) {
+      console.log(err);
+      response.sendStatus(500);
+    } else {
+      console.log(message);
+      response.sendStatus(200);
+    }
+  })
+})
+
+router.put('/unclaimEquip/:id', function(request, response) {
+  Trip.unclaimEquipment(request.params.id, function(err, message){
+    if(err) {
+      console.log(err);
+      response.sendStatus(500);
+    } else {
+      console.log(message);
+      response.sendStatus(200);
+    }
+  })
+})
+
 module.exports = router;

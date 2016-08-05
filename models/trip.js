@@ -19,7 +19,7 @@ function getOverview(tripId, callback) {
       done();
       return callback(err);
     }
-    client.query('SELECT trip_id, user_id, username FROM trip_assignments JOIN users ON trip_assignments.user_id = users.id WHERE trip_id=$1', [tripId], function(err, users){
+    client.query('SELECT trip_assignments.id, trip_id, user_id, username, email, phone FROM trip_assignments JOIN users ON trip_assignments.user_id = users.id WHERE trip_id=$1', [tripId], function(err, users){
       if(err){
         done(err);
         return callback(err)
@@ -236,6 +236,40 @@ function addGroupEquipment(request, callback) {
   });
 }
 
+function claimEquipment(id, userid, callback) {
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('UPDATE trip_equipment SET responsible=$1 WHERE id=$2;', [userid, id], function(err){
+      if(err){
+        done(err);
+        return callback(err)
+      }
+      done();
+      return callback(null, {message: 'equipment assigned'});
+    });
+  });
+}
+
+function unclaimEquipment(id, callback) {
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('UPDATE trip_equipment SET responsible=null WHERE id=$1;', [id], function(err){
+      if(err){
+        done(err);
+        return callback(err)
+      }
+      done();
+      return callback(null, {message: 'equipment unassigned'});
+    });
+  });
+}
+
 module.exports = {
   getOverview: getOverview,
   getGroupEquipment: getGroupEquipment,
@@ -243,5 +277,7 @@ module.exports = {
   joinTrip: joinTrip,
   addPersonalEquipment: addPersonalEquipment,
   addGroupEquipment: addGroupEquipment,
-  removeEquipment: removeEquipment
+  removeEquipment: removeEquipment,
+  claimEquipment: claimEquipment,
+  unclaimEquipment: unclaimEquipment
 };

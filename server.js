@@ -78,6 +78,13 @@ app.use('/register', register);
 app.use('/login', login);
 app.use('/trips', trips);
 app.use('/users', users);
+app.get('/logout', function(request, response){
+  request.logout();
+  response.sendStatus(200);
+});
+app.get('/currentuser', function(request, response){
+  response.send(request.user);
+});
 
 //server start
 var port = process.env.PORT || 3000;

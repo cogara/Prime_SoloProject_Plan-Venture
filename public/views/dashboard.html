@@ -3,14 +3,14 @@
     <li class="nav-list-item"><a ui-sref="dashboard">Home</a></li>
     <li class="nav-list-item"><a ui-sref="dashboard.preferences">Preferences</a></li>
     <li class="nav-list-item"><a ui-sref="dashboard">Messages</a></li>
-    <li class="nav-list-item"><span class="logout">Logout</span></li>
+    <li class="nav-list-item"><span class="logout" ng-click="main.logout()">Logout</span></li>
   </ul>
 </div>
 
 <div class="dashboard" ui-view>
   <h1>Hello {{dash.userData.currentUser.username}}!</h1>
   <div class="trip-display">
-    <div class="trip-box" ng-repeat="trip in dash.tripList" ng-click="dash.goToTrip(trip.id, trip.trip_name)">
+    <div class="trip-box" ng-repeat="trip in dash.trips.tripList" ng-click="dash.goToTrip(trip.id)">
       <ul>
         <li><h4>{{trip.trip_name}}</h4></li>
         <li>Date: {{trip.shortDate}}</li>

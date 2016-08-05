@@ -10,8 +10,8 @@ angular
     var vm = this;
     vm.username = 'test';
     vm.password = '123';
-    vm.getCurrentUser = UserService.getCurrentUser;
     vm.login = login;
+
 
     function login() {
       var sendData = {};
@@ -21,7 +21,7 @@ angular
     }
 
     function loginSuccess(response) {
-      vm.getCurrentUser(response.data);
+      UserService.getCurrentUser(response.data);
       $state.go('dashboard');
     }
 
