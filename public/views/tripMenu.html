@@ -1,0 +1,30 @@
+<h1>Menu!!</h1>
+<ul ng-repeat="day in menu.menu track by $index"><h4>Day {{$index+1}}</h4>
+  <li> ::: Breakfast :::
+    <ul>
+      <li>
+        <input type="text" ng-model="menu.addBreakfastItem" placeholder="Add Food">
+        <button ng-click="menu.addBreakfast($index)">Add</button>
+      </li>
+      <li ng-repeat="item in day.breakfast">{{item.food}}</li>
+    </ul>
+  </li>
+  <li> ::: Lunch :::
+    <ul>
+      <li>
+        <input type="text" ng-model="menu.addLunchItem" placeholder="Add Food">
+        <button ng-click="menu.addLunch($index)">Add</button>
+      </li>
+      <li ng-repeat="item in day.lunch">{{item}}</li>
+    </ul>
+  </li>
+  <li> ::: Dinner :::
+    <ul>
+      <li>
+        <input type="text" ng-model="menu.addDinnerItem" placeholder="Add Food">
+        <button ng-click="menu.addDinner($index)">Add</button>
+      </li>
+      <li ng-repeat="item in day.dinner">{{item}}</li>
+    </ul>
+  </li>
+</ul>

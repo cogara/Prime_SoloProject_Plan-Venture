@@ -4,24 +4,22 @@
   Location: {{dash.trip.info.location}} <br />
   Nights: {{dash.trip.info.duration}} <br />
   <ul class="members-list">Members:
-    <li>
-      <div class="profile" ng-show="dash.profileView">
-        <div class="profile-info">
-          <ul>
-            <li>{{dash.tempProfile.username}}</li>
-            <li>{{dash.tempProfile.phone}}</li>
-            <li>{{dash.tempProfile.email}}</li>
-          </ul>
-          <button class="btn" ng-click="dash.closeProfile()">Close</button>
-        </div>
-      </div>
-    </li>
     <li class="trip-member" ng-repeat="user in dash.trip.users track by $index">
       <span class="user-profile-link" ng-click="dash.getUserProfile($index)">
         {{user.username}}
       </span>
     </li>
   </ul>
+  <div class="profile" ng-show="dash.profileView"  ng-click="dash.closeProfile()">
+    <div class="profile-info">
+      <ul ng-click="dash.preventClose()">
+        <li>{{dash.tempProfile.username}}</li>
+        <li>{{dash.tempProfile.phone}}</li>
+        <li>{{dash.tempProfile.email}}</li>
+      </ul>
+      <button class="btn">Close</button>
+    </div>
+  </div>
 
 
 </div>

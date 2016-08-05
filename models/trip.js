@@ -1,5 +1,7 @@
 var pg = require('pg');
+var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var Menu = require('./menu.js');
 var SALT_WORK_FACTOR = 10;
 
 var config = {
@@ -97,14 +99,17 @@ function newTrip(request, callback) {
                 }
               });
             }
+            createMenu(tripDuration, trip.rows[0].id);
             done();
-            callback(null, trip.rows);
+            return callback(null, trip.rows);
           })
         });
       });
     });
   });
 }
+
+
 
 function joinTrip(request, callback) {
   pool.connect(function(err, client, done){
@@ -168,7 +173,6 @@ function joinTrip(request, callback) {
                     }
                   }
                   done();
-                  console.log('passed the loop');
                   callback(null, {message: 'User Added'});
                 });
               });
@@ -268,6 +272,25 @@ function unclaimEquipment(id, callback) {
       return callback(null, {message: 'equipment unassigned'});
     });
   });
+}
+
+function createMenu(duration, tripId) {
+  var tripMenu = {};
+  tripMenu.menu = [];
+  tripMenu.tripId = tripId;
+  for (var i = 1; i <= duration; i++) {
+    var menuDay = {};
+    menuDay.breakfast = [];
+    menuDay.lunch = [];
+    menuDay.dinner = [];
+    tripMenu.menu.push(menuDay);
+  }
+  var addedMenu = new Menu(tripMenu);
+  addedMenu.save(function(err){
+    if(err){
+      console.log('Error Creating Menu');
+    }
+  })
 }
 
 module.exports = {

@@ -11,7 +11,6 @@ angular
     vm.tempProfile = {};
     vm.goToTrip = goToTrip;
     vm.userData = UserService.data;
-    vm.trips = TripService.data;
     vm.addPersonalEquipment = addPersonalEquipment;
     vm.addGroupEquipment = addGroupEquipment;
     vm.removeEquipment = removeEquipment;
@@ -19,9 +18,12 @@ angular
     vm.getUserProfile = getUserProfile;
     vm.closeProfile = closeProfile;
     vm.unclaimEquipment = unclaimEquipment;
+    vm.preventClose = preventClose;
 
+    
 
     function getTrips() {
+      console.log('Getting Trips');
       TripService.getTrips().then(function(response){
         vm.tripList = response;
       }, function(){
@@ -43,14 +45,23 @@ angular
       vm.profileView = true;
     }
 
+    function preventClose() {
+      console.log('prevented');
+      vm.prevent = true;
+    }
+
     function closeProfile(){
-      vm.tempProfile = {};
-      vm.profileView = false;
+      if (!vm.prevent) {
+        console.log('not prevented');
+        vm.tempProfile = {};
+        vm.profileView = false;
+      }
+      vm.prevent = false;
     }
 
     function addPersonalEquipment() {
       console.log('testing trip id', vm.trip.info.id);
-      TripService.addPersonalEquipment(vm.personalEquipmentAdd, tripId).then(function() {
+      TripService.addPersonalEquipment(vm.personalEquipmentAdd, vm.trip.info.id).then(function() {
         TripService.getPersonalEquipment(vm.trip.info.id).then(personalEquipSuccess);
       }, function() {
         console.log('ERROR');
@@ -60,14 +71,14 @@ angular
     function removeEquipment(equipment) {
       console.log('Equipment', equipment);
       TripService.removeEquipment(equipment).then(function() {
-        TripService.getPersonalEquipment(vm.currentTripId).then(personalEquipSuccess);
-        TripService.getGroupEquipment(vm.currentTripId).then(groupEquipSuccess);
+        TripService.getPersonalEquipment(vm.trip.info.id).then(personalEquipSuccess);
+        TripService.getGroupEquipment(vm.trip.info.id).then(groupEquipSuccess);
       });
     }
 
     function addGroupEquipment() {
       console.log(vm.groupEquipment);
-      TripService.addGroupEquipment(vm.groupEquipmentAdd, tripId).then(function() {
+      TripService.addGroupEquipment(vm.groupEquipmentAdd, vm.trip.info.id).then(function() {
         TripService.getGroupEquipment(vm.trip.info.id).then(groupEquipSuccess);
       }, function() {
         console.log('ERROR on add group');
@@ -76,7 +87,7 @@ angular
 
     function claimEquipment(equipment) {
       TripService.claimEquipment(equipment).then(function() {
-        TripService.getGroupEquipment(vm.currentTripId).then(groupEquipSuccess);
+        TripService.getGroupEquipment(vm.trip.info.id).then(groupEquipSuccess);
       }, function() {
         console.log('Error on claim');
       })
@@ -84,7 +95,7 @@ angular
 
     function unclaimEquipment(equipment) {
       TripService.unclaimEquipment(equipment).then(function() {
-        TripService.getGroupEquipment(vm.currentTripId).then(groupEquipSuccess);
+        TripService.getGroupEquipment(vm.trip.info.id).then(groupEquipSuccess);
       }, function() {
         console.log('unclaim fail');
       })

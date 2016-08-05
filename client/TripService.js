@@ -28,6 +28,7 @@ angular
       for (var i = 0; i < data.tripList.length; i++) {
         data.tripList[i].shortDate = new Date(data.tripList[i].date).toLocaleDateString('en-US');
       }
+      console.log('get trips success');
       return data.tripList;
     }
 
@@ -36,6 +37,9 @@ angular
       tripData.users = response.data.users;
       tripData.info = response.data.info[0];
       tripData.info.shortDate = new Date(tripData.info.date).toLocaleDateString('en-US');
+
+      data.trip = tripData;
+      console.log('data.trip', data.trip);
 
       return tripData;
       $state.go('dashboard.tripDisplay.tripOverview');
@@ -84,7 +88,6 @@ angular
     return {
       data: data,
       getTrips: getTrips,
-      // getOverview: getOverview,
       getPersonalEquipment: getPersonalEquipment,
       getGroupEquipment: getGroupEquipment,
       getOverview: getOverview,

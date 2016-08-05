@@ -8,7 +8,6 @@ angular
 
   function CreateTripController($http, $state, TripService) {
     var vm = this;
-    vm.getTrips = TripService.getTrips;
     vm.createTrip = createTrip;
 
     function createTrip(){
@@ -24,8 +23,7 @@ angular
 
       function createSuccess(response) {
         console.log(response);
-        vm.getTrips();
-        $state.go('dashboard');
+        TripService.getTrips();
       }
       function httpFailure() {
         console.log('HTTP Request Failure');

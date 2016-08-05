@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
+var mongoose = require('mongoose');
 var env = require('dotenv').config();
 
 //routers and models
@@ -13,9 +14,21 @@ var register = require('./routes/register.js');
 var login = require('./routes/login.js');
 var trips = require('./routes/trips.js');
 var users = require('./routes/users.js');
-var index = require('./routes/index');
+var menus = require('./routes/menus.js')
+var index = require('./routes/index.js');
 
 var app = express();
+
+//mongo DB connection
+var mongoURI = "mongodb://localhost:27017/planventure";
+var MongoDB = mongoose.connect(mongoURI).connection;
+
+MongoDB.on('error', function (err) {
+    console.log('mongodb connection error:', err);
+});
+MongoDB.once('open', function () {
+  console.log('mongodb connection open!');
+});
 
 //Static and config files
 app.use(session({
@@ -78,6 +91,7 @@ app.use('/register', register);
 app.use('/login', login);
 app.use('/trips', trips);
 app.use('/users', users);
+app.use('/menus', menus);
 app.get('/logout', function(request, response){
   request.logout();
   response.sendStatus(200);

@@ -30,6 +30,12 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'DashboardController',
       controllerAs: 'dash'
     })
+    .state('dashboard.createTrip', {
+      url: '/create',
+      templateUrl: '/views/createTrip.html',
+      controller: 'CreateTripController',
+      controllerAs: 'create'
+    })
     .state('dashboard.tripDisplay', {
       abstract: true,
       url: '/tripDisplay',
@@ -47,11 +53,11 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
       // controller: 'TripEquipmentController',
       // controllerAs: 'equip'
     })
-    .state('dashboard.createTrip', {
-      url: '/create',
-      templateUrl: '/views/createTrip.html',
-      controller: 'CreateTripController',
-      controllerAs: 'create'
+    .state('dashboard.tripDisplay.tripMenu', {
+      url: '/menu',
+      templateUrl: '/views/tripMenu.html',
+      controller: 'TripMenuController',
+      controllerAs: 'menu'
     })
     .state('dashboard.joinTrip', {
       url: '/join',
