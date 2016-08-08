@@ -22,7 +22,7 @@ angular
 
     function loginSuccess(response) {
       UserService.getCurrentUser(response.data);
-      $state.go('dashboard');
+      $state.go('user.dashboard');
     }
 
     function httpFailure() {

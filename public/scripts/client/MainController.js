@@ -32,7 +32,7 @@ angular
     function loginSuccess(response) {
       console.log(response.data);
       UserService.getCurrentUser(response.data);
-      $state.go('dashboard');
+      $state.go('user.dashboard');
     }
 
   } //end MainController

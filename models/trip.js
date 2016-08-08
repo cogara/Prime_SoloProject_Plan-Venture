@@ -278,8 +278,9 @@ function createMenu(duration, tripId) {
   var tripMenu = {};
   tripMenu.menu = [];
   tripMenu.tripId = tripId;
-  for (var i = 1; i <= duration; i++) {
+  for (var i = 1; i <= duration + 1; i++) {
     var menuDay = {};
+    menuDay.day = i;
     menuDay.breakfast = [];
     menuDay.lunch = [];
     menuDay.dinner = [];

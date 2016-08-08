@@ -1,0 +1,15 @@
+<div class="nav-menu">
+  <ul class="nav-list">
+    <li class="nav-list-item"><a ui-sref="user.dashboard">Home</a></li>
+    <li class="nav-list-item"><a ui-sref="user.preferences">Preferences</a></li>
+    <li class="nav-list-item"><a ui-sref="user.dashboard">Messages</a></li>
+    <li class="nav-list-item">
+      <span class="greeting">Hello, {{user.userData.currentUser.username}}!<!--
+      --><span class="logout"><!--
+        --><span ng-click="main.logout()">Logout</span>
+        </span>
+      </span>
+    </li>
+  </ul>
+</div>
+<div class="content" ui-view></div>

@@ -1,24 +1,24 @@
-<div class="trip-container">
-  <h3>User Preferences</h3><br />
-  <p>Username: {{dash.userData.currentUser.username}}</p>
-  <p ng-if="dash.userData.currentUser.email">Email: {{dash.userData.currentUser.email}}</p>
-  <p ng-if="!dash.userData.currentUser.email">Add Email</p>
+<h2>User Preferences</h2>
+<div class="content-container">
+  <p>Username: {{user.userData.currentUser.username}}</p>
+  <p ng-if="user.userData.currentUser.email">Email: {{user.userData.currentUser.email}}</p>
+  <p ng-if="!user.userData.currentUser.email">Add Email</p>
   <p>Add phone</p>
   <br />
   Default Gear:
   <ul>
     <li>
-      <input type="text" ng-model="user.equipmentName" placeholder="Add Default Equipment">
+      <input type="text" ng-model="pref.equipmentName" placeholder="Add Default Equipment">
       <span >
-        <button class="btn btn-primary" ng-click="user.addDefaultEquipment({equipmentName: user.equipmentName})">
+        <button class="btn btn-primary" ng-click="pref.addDefaultEquipment({equipmentName: pref.equipmentName})">
           Add
         </button>
       </span>
     </li>
 
-    <li class="default-equipment" ng-repeat="equipment in user.defaultEquipment">
+    <li class="default-equipment" ng-repeat="equipment in pref.defaultEquipment">
       {{equipment.equipment}}
-      <button class="btn btn-primary" ng-click="user.removeDefaultEquipment(equipment)">remove</button>
+      <button class="btn btn-primary" ng-click="pref.removeDefaultEquipment(equipment)">remove</button>
     </li>
   </ul>
 </div>

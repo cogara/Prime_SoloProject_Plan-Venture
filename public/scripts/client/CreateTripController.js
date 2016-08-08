@@ -24,7 +24,7 @@ angular
       function createSuccess(response) {
         console.log(response);
         TripService.getTrips();
-        $state.go('dashboard');
+        $state.go('user.dashboard');
       }
       function httpFailure() {
         console.log('HTTP Request Failure');

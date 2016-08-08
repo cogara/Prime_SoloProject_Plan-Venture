@@ -104,7 +104,7 @@ angular
 
     function overviewSuccess(response) {
       vm.trip = response;
-      $state.go('dashboard.tripDisplay.tripOverview');
+      $state.go('user.dashboard.tripDisplay.tripOverview');
     }
     function personalEquipSuccess(response) {
       vm.personalEquipment = response;

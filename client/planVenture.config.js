@@ -27,6 +27,15 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('user', {
       url: '/user',
       abstract: true,
+      templateUrl: '/views/user.html',
+      controller: 'UserController',
+      controllerAs: 'user'
+    })
+    .state('user.preferences', {
+      url: '/preferences',
+      templateUrl: '/views/preferences.html',
+      controller: 'UserPrefController',
+      controllerAs: 'pref'
     })
     .state('user.dashboard', {
       url: '/dashboard',
@@ -39,6 +48,12 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: '/views/createTrip.html',
       controller: 'CreateTripController',
       controllerAs: 'create'
+    })
+    .state('user.joinTrip', {
+      url: '/join',
+      templateUrl: '/views/joinTrip.html',
+      controller: 'JoinTripController',
+      controllerAs: 'join'
     })
     .state('user.dashboard.tripDisplay', {
       abstract: true,
@@ -62,19 +77,8 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: '/views/tripMenu.html',
       controller: 'TripMenuController',
       controllerAs: 'menu'
-    })
-    .state('user.dashboard.joinTrip', {
-      url: '/join',
-      templateUrl: '/views/joinTrip.html',
-      controller: 'JoinTripController',
-      controllerAs: 'join'
-    })
-    .state('user.dashboard.preferences', {
-      url: '/preferences',
-      templateUrl: '/views/preferences.html',
-      controller: 'UserPrefController',
-      controllerAs: 'user'
     });
+
 
   $locationProvider.html5Mode(true);
 }

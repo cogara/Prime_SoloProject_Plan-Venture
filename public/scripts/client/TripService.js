@@ -75,6 +75,23 @@ angular
       return $http.put('/trips/claimEquip/' + equipment.id).then(equipSuccess, httpFailure);
     }
 
+    function getMenu(tripId) {
+      console.log('Trip service id:', tripId);
+      return $http.get('/menus/id/' + tripId).then(function(response){
+        return response.data
+      }, function(){
+        console.log('Error getting menu');
+      })
+    }
+
+    function addMenuItem(tripId, data){
+      return $http.put('/menus/addItem/' + tripId, data).then(function(response){
+        console.log('in trip service', response.data);
+      }, function() {
+        console.log('error');
+      })
+    }
+
     function equipSuccess(response) {
       console.log('Success!!!');
     }
@@ -94,7 +111,9 @@ angular
       addGroupEquipment: addGroupEquipment,
       removeEquipment: removeEquipment,
       claimEquipment: claimEquipment,
-      unclaimEquipment: unclaimEquipment
+      unclaimEquipment: unclaimEquipment,
+      addMenuItem: addMenuItem,
+      getMenu: getMenu
     }
   }
 

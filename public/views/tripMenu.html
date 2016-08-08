@@ -1,30 +1,23 @@
-<h1>Menu!!</h1>
-<ul ng-repeat="day in menu.menu track by $index"><h4>Day {{$index+1}}</h4>
-  <li> ::: Breakfast :::
-    <ul>
-      <li>
-        <input type="text" ng-model="menu.addBreakfastItem" placeholder="Add Food">
-        <button ng-click="menu.addBreakfast($index)">Add</button>
-      </li>
-      <li ng-repeat="item in day.breakfast">{{item.food}}</li>
-    </ul>
-  </li>
-  <li> ::: Lunch :::
-    <ul>
-      <li>
-        <input type="text" ng-model="menu.addLunchItem" placeholder="Add Food">
-        <button ng-click="menu.addLunch($index)">Add</button>
-      </li>
-      <li ng-repeat="item in day.lunch">{{item}}</li>
-    </ul>
-  </li>
-  <li> ::: Dinner :::
-    <ul>
-      <li>
-        <input type="text" ng-model="menu.addDinnerItem" placeholder="Add Food">
-        <button ng-click="menu.addDinner($index)">Add</button>
-      </li>
-      <li ng-repeat="item in day.dinner">{{item}}</li>
-    </ul>
-  </li>
-</ul>
+<h3>Menu</h3>
+<div ng-repeat="day in menu.tripMenu"><h4>Day {{day.day}}</h4>
+  <div ng-repeat="(meal, food) in day" ng-if="meal != 'day'">
+    <h4>{{meal}}</h4>
+    <div ng-repeat="item in food">
+      {{item.name}} {{item.qty}}<button ng-click="menu.testClick(item.itemId, meal)">Test!</button>
+    </div>
+    <div>
+      <input type="text" ng-model="menu.addMenuItem">
+      <input type="text" ng-model="menu.addMenuQty">
+      <button ng-click="menu.addItem(meal, day.day, {name: menu.addMenuItem, qty: menu.addMenuQty})">Add</button>
+    </div>
+  </div>
+
+  <!-- <div ng-repeat="(meal, food) in day">
+    <h5>{{meal}}</h5>
+    <div ng-repeat="item in food">
+      {{item.name}} --- {{item.qty}}
+    </div>
+
+  </div> -->
+
+</div>

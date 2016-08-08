@@ -83,16 +83,11 @@ h3 {
   margin: 0 0 8px;
 }
 
-.content {
-  color: white;
-  /*padding: 20px;*/
-}
-
 input {
   color: black;
 }
-.dashboard {
-  text-align: center;
+.container {
+  /*text-align: center;*/
   background-color: rgba(255,255,255,.6);
   color: black;
   width: 100%;
@@ -101,14 +96,18 @@ input {
   margin: 0 auto;
 }
 
+.content {
+  text-align: center;
+}
+
 .user-profile-link {
   cursor: pointer;
   /*color: yellow;*/
 }
 
-.trip-container {
+.content-container {
   background-color: white;
-  /*color: black;*/
+  color: black;
   width: 100%;
   max-width: 1000px;
   padding: 20px;

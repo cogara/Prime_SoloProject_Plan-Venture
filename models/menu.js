@@ -8,4 +8,6 @@ var menuSchema = new Schema({
 
 var Menu = mongoose.model('Menu', menuSchema);
 
+
+
 module.exports = Menu;

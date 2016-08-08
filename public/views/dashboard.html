@@ -1,19 +1,6 @@
-<div class="nav-menu">
-  <ul class="nav-list">
-    <li class="nav-list-item"><a ui-sref="dashboard">Home</a></li>
-    <li class="nav-list-item"><a ui-sref="dashboard.preferences">Preferences</a></li>
-    <li class="nav-list-item"><a ui-sref="dashboard">Messages</a></li>
-    <li class="nav-list-item">
-      <span class="greeting">Hello, {{dash.userData.currentUser.username}}!<!--
-      --><span class="logout"><!--
-        --><span ng-click="main.logout()">Logout</span>
-        </span>
-      </span>
-    </li>
-  </ul>
-</div>
 
-<div class="dashboard" ui-view>
+
+<div ui-view>
   <h2 class="dashboard-header">Current Trips</h2>
   <div class="trip-display">
     <div class="trip-box" ng-repeat="trip in dash.trips" ng-click="dash.goToTrip(trip.id)">
@@ -25,7 +12,7 @@
       </ul>
     </div>
   </div>
-  <button class="btn btn-primary"  ui-sref="createTrip">Create Trip!</button>
-  <button class="btn btn-primary"  ui-sref="dashboard.joinTrip">Join Trip!</button>
+  <button class="btn btn-primary"  ui-sref="user.createTrip">Create Trip!</button>
+  <button class="btn btn-primary"  ui-sref="user.joinTrip">Join Trip!</button>
 
 </div>

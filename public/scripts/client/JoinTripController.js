@@ -19,8 +19,8 @@ angular
     }
     function joinSuccess(response) {
       vm.getTrips();
-      alert(response.data.message);
-      $state.go('dashboard');
+      // alert(response.data.message);
+      $state.go('user.dashboard');
     }
     function httpFailure() {
       console.log('HTTP Request Failure');
