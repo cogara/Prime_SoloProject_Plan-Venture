@@ -1,6 +1,6 @@
 <h3>Menu</h3>
-<div ng-repeat="day in menu.tripMenu"><h4>Day {{day.day}}</h4>
-  <div ng-repeat="(meal, food) in day" ng-if="meal != 'day'">
+<div ng-repeat="menuDay in menu.tripMenu"><h3>Day {{menuDay.day}}</h3>
+  <div ng-repeat="(meal, food) in menuDay" ng-if="meal != 'day'">
     <h4>{{meal}}</h4>
     <div ng-repeat="item in food">
       {{item.name}} {{item.qty}}<button ng-click="menu.testClick(item.itemId, meal)">Test!</button>
@@ -8,16 +8,8 @@
     <div>
       <input type="text" ng-model="menu.addMenuItem">
       <input type="text" ng-model="menu.addMenuQty">
-      <button ng-click="menu.addItem(meal, day.day, {name: menu.addMenuItem, qty: menu.addMenuQty})">Add</button>
+      <button ng-click="menu.addItem(meal, menuDay.day, {name: menu.addMenuItem, qty: menu.addMenuQty})">Add</button>
     </div>
   </div>
-
-  <!-- <div ng-repeat="(meal, food) in day">
-    <h5>{{meal}}</h5>
-    <div ng-repeat="item in food">
-      {{item.name}} --- {{item.qty}}
-    </div>
-
-  </div> -->
 
 </div>

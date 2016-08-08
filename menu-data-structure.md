@@ -4,38 +4,38 @@
   menu: [
     {
       breakfast: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ],
       lunch: [
-        {food: fooditem, qty: qty},
-        {food: fooditem, qty: qty}
+        {name: fooditem, qty: qty},
+        {name: fooditem, qty: qty}
       ],
       dinner: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ]
     },
     {
       breakfast: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ],
       lunch: [
-        {food: fooditem, qty: qty},
-        {food: fooditem, qty: qty}
+        {name: fooditem, qty: qty},
+        {name: fooditem, qty: qty}
       ],
       dinner: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ]
     },
     {
       breakfast: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ],
       lunch: [
-        {food: fooditem, qty: qty},
-        {food: fooditem, qty: qty}
+        {name: fooditem, qty: qty},
+        {name: fooditem, qty: qty}
       ],
       dinner: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ]
     }
   ]
@@ -48,27 +48,27 @@
   menu: [
     {
       breakfast: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ],
       lunch: [
-        {food: fooditem, qty: qty},
-        {food: fooditem, qty: qty}
+        {name: fooditem, qty: qty},
+        {name: fooditem, qty: qty}
       ],
       dinner: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ]
 
     },
     {
       breakfast: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ],
       lunch: [
-        {food: fooditem, qty: qty},
-        {food: fooditem, qty: qty}
+        {name: fooditem, qty: qty},
+        {name: fooditem, qty: qty}
       ],
       dinner: [
-        {food: fooditem, qty: qty},
+        {name: fooditem, qty: qty},
       ]
     }
   ]

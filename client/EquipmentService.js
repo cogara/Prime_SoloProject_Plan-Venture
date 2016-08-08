@@ -15,7 +15,6 @@ angular
     }
 
     function removeDefaultEquipment(data) {
-      console.log(data.id);
       return $http.delete('/users/remEquip/' + data.id).then(editEquipSuccess, handleFailure);
     }
 

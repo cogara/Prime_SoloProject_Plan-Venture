@@ -286,8 +286,8 @@ function createMenu(duration, tripId) {
     menuDay.dinner = [];
     tripMenu.menu.push(menuDay);
   }
-  var addedMenu = new Menu(tripMenu);
-  addedMenu.save(function(err){
+  var menu = new Menu(tripMenu);
+  menu.save(function(err){
     if(err){
       console.log('Error Creating Menu');
     }

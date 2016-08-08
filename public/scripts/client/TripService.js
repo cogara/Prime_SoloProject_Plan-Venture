@@ -28,7 +28,6 @@ angular
       for (var i = 0; i < data.tripList.length; i++) {
         data.tripList[i].shortDate = new Date(data.tripList[i].date).toLocaleDateString('en-US');
       }
-      console.log('get trips success');
       return data.tripList;
     }
 
@@ -39,7 +38,6 @@ angular
       tripData.info.shortDate = new Date(tripData.info.date).toLocaleDateString('en-US');
 
       data.trip = tripData;
-      console.log('data.trip', data.trip);
 
       return tripData;
     }
@@ -55,24 +53,23 @@ angular
 
     function addPersonalEquipment(equipment, tripId) {
       console.log(equipment, tripId);
-      return $http.post('/trips/add/pe/' + tripId, {equipmentName: equipment}).then(equipSuccess, httpFailure);
+      return $http.post('/trips/add/pe/' + tripId, {equipmentName: equipment});
     }
 
     function addGroupEquipment(equipment, tripId) {
-      return $http.post('/trips/add/ge/' + tripId, {equipmentName: equipment}).then(equipSuccess, httpFailure);
+      return $http.post('/trips/add/ge/' + tripId, {equipmentName: equipment});
     }
 
     function removeEquipment(equipment) {
-      console.log(equipment);
-      return $http.delete('/trips/remEquip/' + equipment.id).then(equipSuccess, httpFailure);
+      return $http.delete('/trips/remEquip/' + equipment.id);
     }
 
     function unclaimEquipment(equipment) {
-      return $http.put('/trips/unclaimEquip/' + equipment.id).then(equipSuccess, httpFailure);
+      return $http.put('/trips/unclaimEquip/' + equipment.id);
     }
 
     function claimEquipment(equipment) {
-      return $http.put('/trips/claimEquip/' + equipment.id).then(equipSuccess, httpFailure);
+      return $http.put('/trips/claimEquip/' + equipment.id);
     }
 
     function getMenu(tripId) {
@@ -85,8 +82,10 @@ angular
     }
 
     function addMenuItem(tripId, data){
+      console.log('Trip Service, adding menu item: ', data);
       return $http.put('/menus/addItem/' + tripId, data).then(function(response){
         console.log('in trip service', response.data);
+        return;
       }, function() {
         console.log('error');
       })

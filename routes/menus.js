@@ -30,9 +30,7 @@ router.put('/addItem/:id', function(request, response){
   console.log(request.params);
   console.log(request.body);
   var meal = request.body.meal;
-  console.log('testing meal', meal);
-  var id = new ObjectId().toString();
-  console.log(id);
+  var mealId = new ObjectId().toString();
   switch(meal) {
     case 'dinner':
       Menu.update(
@@ -41,19 +39,21 @@ router.put('/addItem/:id', function(request, response){
             {
                 'menu.$.dinner':
                     {
-                        'itemId': id,
+                        'itemId': mealId,
                         'name': request.body.item.name,
                         'qty': request.body.item.qty
                     }
             }
-        }, function(err, response){
+        }, function(err, menu){
           if(err){
             console.log(err);
             response.sendStatus(500)
           } else {
-            console.log(response);
+            console.log(menu);
+            response.sendStatus(200);
           }
         });
+      console.log('Updated Dinner');
       return;
     case 'lunch':
       Menu.update(
@@ -62,19 +62,21 @@ router.put('/addItem/:id', function(request, response){
             {
                 'menu.$.lunch':
                     {
-                        'itemId': id,
+                        'itemId': mealId,
                         'name': request.body.item.name,
                         'qty': request.body.item.qty
                     }
             }
-        }, function(err, response){
+        }, function(err, menu){
           if(err){
             console.log(err);
             response.sendStatus(500)
           } else {
-            console.log(response);
+            console.log(menu);
+            response.sendStatus(200);
           }
         });
+      console.log('Updated Lunch');
       return;
     case 'breakfast':
       Menu.update(
@@ -83,19 +85,21 @@ router.put('/addItem/:id', function(request, response){
             {
                 'menu.$.breakfast':
                     {
-                        'itemId': id,
+                        'itemId': mealId,
                         'name': request.body.item.name,
                         'qty': request.body.item.qty
                     }
             }
-        }, function(err, response){
+        }, function(err, menu){
           if(err){
             console.log(err);
-            response.sendStatus(500)
+            response.sendStatus(500);
           } else {
-            console.log(response);
+            console.log(menu);
+            response.sendStatus(200);
           }
         });
+      console.log('Updated Breakfast');
       return;
     }
 });

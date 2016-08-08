@@ -17,10 +17,10 @@ angular
       console.log(test, meal);
     }
 
-    function addItem(meal, index, item) {
+    function addItem(meal, day, item) {
       var data = {};
       data.meal = meal;
-      data.day = index;
+      data.day = day;
       data.item = item;
       TripService.addMenuItem(vm.trip.info.id, data).then(function(response){
         console.log('anything?');

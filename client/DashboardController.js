@@ -25,8 +25,6 @@ angular
     function getTrips() {
       TripService.getTrips().then(function(response){
         vm.trips = response;
-        console.log(response);
-        console.log('RELOADED!!!');
       }, function(){
         console.log('Error');
       });
@@ -39,7 +37,6 @@ angular
     }
 
     function getUserProfile(index) {
-      console.log(vm.trip.users[index]);
       vm.tempProfile.username = vm.trip.users[index].username;
       vm.tempProfile.email = vm.trip.users[index].email;
       vm.tempProfile.phone = vm.trip.users[index].phone;
@@ -47,13 +44,11 @@ angular
     }
 
     function preventClose() {
-      console.log('prevented');
       vm.prevent = true;
     }
 
     function closeProfile(){
       if (!vm.prevent) {
-        console.log('not prevented');
         vm.tempProfile = {};
         vm.profileView = false;
       }
@@ -61,7 +56,6 @@ angular
     }
 
     function addPersonalEquipment() {
-      console.log('testing trip id', vm.trip.info.id);
       TripService.addPersonalEquipment(vm.personalEquipmentAdd, vm.trip.info.id).then(function() {
         TripService.getPersonalEquipment(vm.trip.info.id).then(personalEquipSuccess);
       }, function() {
@@ -70,7 +64,6 @@ angular
     }
 
     function removeEquipment(equipment) {
-      console.log('Equipment', equipment);
       TripService.removeEquipment(equipment).then(function() {
         TripService.getPersonalEquipment(vm.trip.info.id).then(personalEquipSuccess);
         TripService.getGroupEquipment(vm.trip.info.id).then(groupEquipSuccess);
@@ -78,7 +71,6 @@ angular
     }
 
     function addGroupEquipment() {
-      console.log(vm.groupEquipment);
       TripService.addGroupEquipment(vm.groupEquipmentAdd, vm.trip.info.id).then(function() {
         TripService.getGroupEquipment(vm.trip.info.id).then(groupEquipSuccess);
       }, function() {
