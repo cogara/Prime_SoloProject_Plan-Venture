@@ -118,6 +118,61 @@ input {
   position: relative;
 }
 
+.message-board {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,.2);
+  background-color: rgba(100,100,100,.2);
+  padding: 5px 5px 10px;
+  margin: 10px 0;
+}
+
+.username {
+  display: inline-block;
+  width: 10rem;
+  text-align: right;
+  margin-right: 5px;
+}
+
+.trip-messages {
+  text-align: left;
+  margin: 5px;
+}
+
+.trip-messages p {
+  margin: 0;
+  padding: 0;
+}
+
+.messages-age {
+  color: rgb(150,150,150);
+  font-style: italic;
+}
+
+.message-input {
+  width: 80%;
+  padding: 3px 5px;
+}
+
+.message-count {
+  width: 10%;
+  text-align: center;
+  display: inline-block;
+}
+
+.message-button {
+  width: 8%;
+  text-align: center;
+  display: inline-block;
+}
+
+.delete-message {
+  display: none;
+}
+
+.message-content:hover .delete-message{
+  display: inline;
+}
+
 .profile {
   position: fixed;
   top: 0;

@@ -20,6 +20,37 @@ angular
     vm.closeProfile = closeProfile;
     vm.unclaimEquipment = unclaimEquipment;
     vm.preventClose = preventClose;
+    vm.leaveTrip = leaveTrip;
+    vm.sendMessage = sendMessage;
+    vm.deleteMessage = deleteMessage;
+
+    function deleteMessage(id) {
+      TripService.deleteMessage(id).then(function() {
+        TripService.getMessages(vm.trip.info.id).then(function(response) {
+          vm.trip.messages = response.data;
+        });
+      });
+    }
+
+    function sendMessage(message) {
+      vm.addMessage = null;
+      var sendData = {};
+      sendData.message = message;
+      sendData.tripId = vm.trip.info.id;
+      TripService.sendMessage(sendData).then(function() {
+        TripService.getMessages(vm.trip.info.id).then(function(response) {
+          vm.trip.messages = response.data;
+        });
+      });
+    }
+
+    function leaveTrip(tripId) {
+      UserService.leaveTrip(tripId).then(function(response){
+        console.log('promise?');
+        getTrips();
+        $state.go('user.dashboard')
+      });
+    }
 
 
     function getTrips() {

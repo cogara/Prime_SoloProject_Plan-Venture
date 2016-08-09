@@ -31,10 +31,13 @@ function getOverview(tripId, callback) {
           done(err);
           return callback(err);
         }
-        done();
-        data.users = users.rows;
-        data.info = info.rows;
-        callback(null, data);
+        getMessages(tripId, function(err, messages) {
+          data.users = users.rows;
+          data.info = info.rows;
+          data.messages = messages;
+          done();
+          callback(null, data);
+        });
       });
     });
   });
@@ -109,8 +112,6 @@ function newTrip(request, callback) {
   });
 }
 
-
-
 function joinTrip(request, callback) {
   pool.connect(function(err, client, done){
     if(err){
@@ -179,6 +180,37 @@ function joinTrip(request, callback) {
             }
           });
         }
+      });
+    });
+  });
+}
+
+function leaveTrip(request, callback) {
+  var userId = request.user.id;
+  var tripId = request.params.id;
+  pool.connect(function(err, client, done) {
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('DELETE FROM trip_assignments WHERE trip_id=$1 AND user_id=$2', [tripId, userId], function(err){
+      if(err){
+        done(err);
+        return callback(err)
+      }
+      client.query('DELETE FROM trip_equipment WHERE trip_id=$1 AND responsible=$2 AND is_group=FALSE', [tripId, userId], function(err) {
+        if(err){
+          done(err);
+          return callback(err)
+        }
+        client.query('UPDATE trip_equipment SET responsible=null WHERE trip_id=$1 AND responsible=$2 AND is_group=TRUE', [tripId, userId], function(err) {
+          if(err){
+            done(err);
+            return callback(err)
+          }
+          done();
+          callback(null, {message: 'User Removed from Trip'});
+        });
       });
     });
   });
@@ -294,6 +326,67 @@ function createMenu(duration, tripId) {
   })
 }
 
+function sendMessage(request, callback) {
+  console.log('in Trip.js', request);
+  var tripId = request.tripId;
+  var userId = request.userId;
+  var message = request.message;
+  pool.connect(function(err, client, done) {
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('INSERT INTO trip_messages (trip_id, user_id, message) VALUES ($1, $2, $3)',
+                [tripId, userId, message],
+                function(err) {
+      if(err){
+        done();
+        return callback(err);
+      }
+      done();
+      return callback(null, {message: 'Message Added'});
+    });
+  });
+}
+
+function getMessages(tripId, callback) {
+  pool.connect(function(err, client, done) {
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('SELECT m.id, u.id as user_id, u.username, t.id as trip_id, m.message FROM trip_messages AS m ' +
+                'JOIN users AS u ON m.user_id = u.id ' +
+                'JOIN trips AS t ON m.trip_id = t.id ' +
+                'WHERE m.trip_id=$1', [tripId],
+                function(err, messages) {
+      if (err) {
+        done();
+        return callback(err);
+      }
+      done();
+      return callback(null, messages.rows);
+    })
+  })
+}
+
+function deleteMessage(id, callback) {
+  pool.connect(function(err, client, done) {
+    if(err) {
+      done();
+      return callback(err);
+    }
+    client.query('DELETE FROM trip_messages WHERE id=$1', [id], function(err) {
+      if(err) {
+        done();
+        return callback(err);
+      }
+      done();
+      return callback(null);
+    });
+  });
+}
+
 module.exports = {
   getOverview: getOverview,
   getGroupEquipment: getGroupEquipment,
@@ -303,5 +396,9 @@ module.exports = {
   addGroupEquipment: addGroupEquipment,
   removeEquipment: removeEquipment,
   claimEquipment: claimEquipment,
-  unclaimEquipment: unclaimEquipment
+  unclaimEquipment: unclaimEquipment,
+  sendMessage: sendMessage,
+  getMessages: getMessages,
+  deleteMessage: deleteMessage,
+  leaveTrip: leaveTrip
 };

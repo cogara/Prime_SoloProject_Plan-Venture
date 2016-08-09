@@ -32,9 +32,8 @@ angular
       var tripData = {}
       tripData.users = response.data.users;
       tripData.info = response.data.info[0];
-
+      tripData.messages = response.data.messages;
       data.trip = tripData;
-
       return tripData;
     }
 
@@ -96,6 +95,22 @@ angular
       })
     }
 
+    function sendMessage(data) {
+      var sendData = {};
+      sendData.message = data.message;
+      return $http.post('/trips/messages/add/' + data.tripId, sendData);
+    }
+
+    function deleteMessage(id) {
+      return $http.delete('/trips/messages/delete/' + id);
+    }
+
+    function getMessages(tripId) {
+      return $http.get('/trips/messages/' + tripId).then(function(response) {
+        return response;
+      })
+    }
+
     function equipSuccess(response) {
       console.log('Success!!!');
     }
@@ -118,6 +133,9 @@ angular
       unclaimEquipment: unclaimEquipment,
       addMenuItem: addMenuItem,
       removeMenuItem: removeMenuItem,
+      sendMessage: sendMessage,
+      getMessages, getMessages,
+      deleteMessage: deleteMessage,
       getMenu: getMenu
     }
   }
