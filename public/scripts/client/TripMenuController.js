@@ -12,6 +12,25 @@ angular
     vm.tripMenu = [];
     vm.addItem = addItem;
     vm.testClick = testClick;
+    vm.menuData = menuData;
+    vm.toggle = toggle;
+
+    function toggle(meal, index) {
+      console.log(meal);
+      vm.addMenuItem = null;
+      vm.addMenuQty = null;
+      if (vm.tripMenu[index][meal].show) {
+        vm.tripMenu[index][meal].show = false;
+      } else {
+        vm.tripMenu[index][meal].show = true;
+      }
+
+      console.log(vm.tripMenu[index]);
+    }
+
+    function menuData(){
+      console.log(vm.tripMenu.length);
+    }
 
     function testClick(test, meal) {
       console.log(test, meal);
@@ -22,6 +41,7 @@ angular
       data.meal = meal;
       data.day = day;
       data.item = item;
+      console.log(data);
       TripService.addMenuItem(vm.trip.info.id, data).then(function(response){
         console.log('anything?');
         getMenu();
