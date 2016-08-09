@@ -1,6 +1,6 @@
 <div class="trip-overview">
 
-  Date: {{dash.trip.info.shortDate}} <br />
+  Date: {{dash.trip.info.date | date : 'MMM d, y'}} <br />
   Location: {{dash.trip.info.location}} <br />
   Nights: {{dash.trip.info.duration}} <br />
   <ul class="members-list">Members:
@@ -10,7 +10,7 @@
       </span>
     </li>
   </ul>
-  
+
   <div class="profile" ng-show="dash.profileView"  ng-click="dash.closeProfile()">
     <div class="profile-info">
       <ul ng-click="dash.preventClose()">

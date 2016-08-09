@@ -25,9 +25,6 @@ angular
 
     function getTripsSuccess(response) {
       data.tripList = response.data;
-      for (var i = 0; i < data.tripList.length; i++) {
-        data.tripList[i].shortDate = new Date(data.tripList[i].date).toLocaleDateString('en-US');
-      }
       return data.tripList;
     }
 
@@ -35,7 +32,6 @@ angular
       var tripData = {}
       tripData.users = response.data.users;
       tripData.info = response.data.info[0];
-      tripData.info.shortDate = new Date(tripData.info.date).toLocaleDateString('en-US');
 
       data.trip = tripData;
 
@@ -91,6 +87,15 @@ angular
       })
     }
 
+    function removeMenuItem(tripId, data){
+      console.log('removing menu item: ', data);
+      return $http.put('/menus/removeItem/' + tripId, data).then(function(){
+        return;
+      }, function() {
+        console.log('error');
+      })
+    }
+
     function equipSuccess(response) {
       console.log('Success!!!');
     }
@@ -112,6 +117,7 @@ angular
       claimEquipment: claimEquipment,
       unclaimEquipment: unclaimEquipment,
       addMenuItem: addMenuItem,
+      removeMenuItem: removeMenuItem,
       getMenu: getMenu
     }
   }

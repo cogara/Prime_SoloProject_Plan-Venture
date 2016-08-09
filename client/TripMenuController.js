@@ -11,29 +11,42 @@ angular
     vm.trip = TripService.data.trip;
     vm.tripMenu = [];
     vm.addItem = addItem;
-    vm.testClick = testClick;
-    vm.menuData = menuData;
-    vm.toggle = toggle;
+    vm.toggleAdd = toggleAdd;
+    vm.editMenu = editMenu;
+    vm.editingMenu = 'Edit Menu';
+    vm.removeMenuItem = removeMenuItem;
 
-    function toggle(meal, index) {
-      console.log(meal);
+    function removeMenuItem(day, meal, item) {
+      console.log(day, meal, item);
+      var data = {};
+      data.day = day;
+      data.meal = meal;
+      data.item = item.itemId;
+      console.log(data);
+      TripService.removeMenuItem(vm.trip.info.id, data).then(function(){
+        console.log('Getting updated menu');
+        getMenu();
+      });
+    }
+
+    function editMenu() {
+      if (vm.menuEdit) {
+        vm.menuEdit = false;
+        vm.editingMenu = 'Edit Menu';
+      } else {
+        vm.editingMenu = 'Done Editing'
+        vm.menuEdit = true;
+      }
+    }
+
+    function toggleAdd(day, meal) {
       vm.addMenuItem = null;
       vm.addMenuQty = null;
-      if (vm.tripMenu[index][meal].show) {
-        vm.tripMenu[index][meal].show = false;
+      if (vm.tripMenu[day-1][meal].show) {
+        vm.tripMenu[day-1][meal].show = false;
       } else {
-        vm.tripMenu[index][meal].show = true;
+        vm.tripMenu[day-1][meal].show = true;
       }
-
-      console.log(vm.tripMenu[index]);
-    }
-
-    function menuData(){
-      console.log(vm.tripMenu.length);
-    }
-
-    function testClick(test, meal) {
-      console.log(test, meal);
     }
 
     function addItem(meal, day, item) {
@@ -54,25 +67,15 @@ angular
       TripService.getMenu(vm.trip.info.id).then(function(response){
         console.log(response);
         vm.tripMenu = response.menu;
+        for (var i = 0; i < vm.tripMenu.length; i++) {
+          var tempDate = new Date(vm.trip.info.date);
+          tempDate.setDate(tempDate.getDate() + i);
+          vm.tripMenu[i].date = tempDate;
+          console.log(vm.tripMenu[i]);
+          // vm.tripMenu[i].day
+        }
       });
     };
-
-    //
-    // createMenu();
-    // function createMenu() {
-    //   for (var i = 1; i <= vm.trip.info.duration; i++) {
-    //     var menuDay = {};
-    //     menuDay.breakfast = [{name: 'donuts', qty: '5'}, {name: 'ceral', qty: '1'}];
-    //     menuDay.lunch = [{name: 'pizza', qty: '1'}, {name: 'pop', qty: '5'}];
-    //     menuDay.dinner = [{name: 'burgers', qty: '5'}];
-    //     vm.tripMenu.push(menuDay);
-    //   }
-    //   // $http.post('/menus/create', vm.menu).then(function(response){
-    //   //   console.log('created menu');
-    //   // }, function(){
-    //   //   console.log('something went wrong!');
-    //   // })
-    // }
 
   } //end MenuController
 })();

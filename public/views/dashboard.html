@@ -3,10 +3,10 @@
 <div ui-view>
   <h2 class="dashboard-header">Current Trips</h2>
   <div class="trip-display">
-    <div class="trip-box" ng-repeat="trip in dash.trips" ng-click="dash.goToTrip(trip.id)">
+    <div class="trip-box" ng-repeat="trip in dash.trips | orderBy:['trip','date']" ng-click="dash.goToTrip(trip.id)">
       <ul>
         <li><h4>{{trip.trip_name}}</h4></li>
-        <li>Date: {{trip.shortDate}}</li>
+        <li>Date: {{trip.date | date: 'EEE, MMM d, y'}}</li>
         <li>Nights: {{trip.duration}}</li>
         <li>Location: {{trip.location}}</li>
       </ul>

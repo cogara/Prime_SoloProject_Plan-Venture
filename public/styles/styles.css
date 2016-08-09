@@ -171,7 +171,7 @@ input {
 .trip-box {
   color: black;
   display: inline-block;
-  width: 150px;
+  width: 200px;
   height: 150px;
   background-color: white;
   margin: 10px;
@@ -227,9 +227,10 @@ input {
 }
 
 
-
+/*Desktop*/
 .menu-trip {
   margin: 20px 0;
+  border: 1px solid black;
 }
 
 .menu-row {
@@ -237,17 +238,114 @@ input {
   width: 100%;
 }
 
-.menu-header {}
-
 .menu-day {
   flex: 0 7rem;
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border: 1px solid black;
 }
 
 .menu-meal {
   flex: 1 0;
-  border: 1px solid blue;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+}
+
+.menu-list {
+  display: flex;
+  flex: 1 auto;
+  flex-direction: column;
+}
+
+.menu-items {
+  position: relative;
+}
+
+.menu-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.menu-input {
+  width: 100%;
+  text-align: center;
+}
+
+.add-item, .food-item {
+  width: 35%;
+  display: inline-block;
+}
+
+.add-qty, .food-qty {
+  width: 35%;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.food-header, .qty-header {
+  border-bottom: 1px solid rgba(0,0,0,.3);
+  padding: 2px;
+}
+
+.small-menu {
+  display: none;
+}
+
+.toggle {
+  flex: 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+}
+
+.toggle-btn {
+  width: 40%;
+  padding: 3px;
+  margin-top: 10px;
+}
+/*Media Query*/
+
+@media (max-width: 600px) {
+  .menu-meal {
+    flex: 1 100%;
+    border: none;
+  }
+
+  .menu-trip {
+    border: none;
+  }
+
+  .small-menu {
+    display: block;
+    text-transform: capitalize;
+  }
+
+  .small-day {
+    border: 1px solid rgba(0,0,0,.3);
+  }
+
+  .menu-row {
+    flex-wrap: wrap;
+  }
+
+  .menu-header {
+    display: none;
+  }
+
+  .menu-day {
+    display: none;
+  }
+
+  .toggle-btn {
+    width: 30%;
+    padding: 3px;
+    margin-top: 10px;
+  }
+
+
 }

@@ -1,59 +1,6 @@
 <h3>Menu</h3>
-
-  <!-- <div class="trip-menu-header"><div class="trip-menu-day" ng-repeat="menuDay in menu.tripMenu">
-    <h3>Day {{menuDay.day}}</h3>
-  </div> -->
-<!-- <div class="trip-menu">
-  <div ng-repeat="menuDay in menu.tripMenu">
-    <div class="trip-menu-row">
-      <div class="trip-menu-meal" ng-repeat="(meal, food) in menuDay" ng-if="meal != 'day'">
-        <div class="trip-menu-column">
-          <h4>{{meal}}</h4>
-          <div class="trip-menu-item" ng-repeat="item in food">
-            {{item.name}} {{item.qty}}<button ng-click="menu.testClick(item.itemId, meal)">Test!</button>
-          </div>
-          <div>
-            <input type="text" ng-model="menu.addMenuItem" placeholder="Add Item">
-            <input type="text" ng-model="menu.addMenuQty" placeholder="Qty">
-            <button ng-click="menu.addItem(meal, menuDay.day, {name: menu.addMenuItem, qty: menu.addMenuQty})">Add</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-<div class="trip-menu">
-  <div class="trip-menu-day" ng-repeat="menuDay in menu.tripMenu">
-    <h3>{{menuDay.day}}</h3>
-    <div class="trip-menu-meals">
-      <div class="trip-meal">
-        <ul>
-          <li>Breakfast</li>
-          <li ng-repeat="meal in menuDay.breakfast">
-            {{meal.name}}
-          </li>
-        </ul>
-      </div>
-      <div class="trip-meal">
-        <ul>
-          <li>Lunch</li>
-          <li ng-repeat="meal in menuDay.lunch">
-            {{meal.name}}
-          </li>
-        </ul>
-      </div>
-      <div class="trip-meal">
-        <ul>
-          <li>Dinner</li>
-          <li ng-repeat="meal in menuDay.dinner">
-            {{meal.name}}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div class="menu-edit">
+  <button class="btn btn-primary btn-small" ng-click="menu.editMenu()">{{menu.editingMenu}}</buton>
 </div>
 
 
@@ -66,11 +13,33 @@
   </div>
   <div class="menu-row" ng-repeat="menuDay in menu.tripMenu">
     <div class="menu-day">
-      <h5>Day {{menuDay.day}}</h5>
+      <h5>{{menuDay.date | date: 'EEE'}}</h5>
+      {{menuDay.date | date: 'M/dd'}}
     </div>
-    <div class="menu-meal" ng-repeat="(meal, food) in menuDay" ng-if="meal != 'day'">
-      <ul>
-        <li ng-repeat="item in food">{{item.name}} --- {{item.qty}}</li>
+    <div class="menu-meal small-menu small-day">
+      <h3>{{menuDay.date | date: 'EEE'}}</h3>
+      {{menuDay.date | date: 'M/dd'}}
+    </div>
+    <div class="menu-meal" ng-repeat="(meal, food) in menuDay" ng-if="meal != 'date' && meal != 'day'">
+      <ul class="menu-list"><h4 class="small-menu">{{meal}}</h4>
+        <li class="menu-item">
+          <div class="food-item"><h5 class="food-header">Food</h5></div>
+          <div class="food-qty"><h5 class="qty-header">Qty</h5></div>
+        </li>
+        <li class="menu-items" ng-repeat="item in food">
+          <div class="food-item">{{item.name}}</div>
+          <div class="food-qty">{{item.qty}}</div>
+          <div class="menu-delete" ng-if="menu.menuEdit"><button class="btn-danger" ng-click="menu.removeMenuItem(menuDay.day, meal, item)">Delete</button></div>
+        </li>
+        <div class="menu-input" ng-if="menu.tripMenu[menuDay.day-1][meal].show">
+          <input type="text" class="add-item" ng-model="menu.addMenuItem" placeholder="Add Item">
+          <input type="text" class="add-qty" ng-model="menu.addMenuQty" placeholder="Qty">
+          <br />
+          <button ng-click="menu.addItem(meal, menuDay.day, {name: menu.addMenuItem, qty: menu.addMenuQty})">Add</button>
+        </div>
+        <div class="toggle" ng-if="!menu.tripMenu[menuDay.day-1][meal].show && menu.menuEdit">
+          <button class="toggle-btn" ng-click="menu.toggleAdd(menuDay.day, meal)">Add Item</button>
+        </div>
       </ul>
     </div>
   </div>

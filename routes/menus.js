@@ -104,4 +104,78 @@ router.put('/addItem/:id', function(request, response){
     }
 });
 
+router.put('/removeItem/:id', function(request, response){
+  console.log(request.params);
+  console.log(request.body);
+  var tripId = request.params.id;
+  var day = request.body.day;
+  var meal = request.body.meal;
+  var itemId = request.body.item;
+  switch(meal) {
+    case 'dinner':
+      Menu.update(
+        {'tripId': tripId, "menu.day": day},
+        {'$pull':
+            {
+                'menu.$.dinner':
+                    {
+                        'itemId': itemId
+                    }
+            }
+        }, function(err, menu){
+          if(err){
+            console.log(err);
+            response.sendStatus(500)
+          } else {
+            console.log(menu);
+            response.sendStatus(200);
+          }
+        });
+      console.log('Updated Dinner');
+      return;
+    case 'lunch':
+      Menu.update(
+        {'tripId': tripId, "menu.day": day},
+        {'$pull':
+            {
+                'menu.$.lunch':
+                    {
+                        'itemId': itemId
+                    }
+            }
+        }, function(err, menu){
+          if(err){
+            console.log(err);
+            response.sendStatus(500)
+          } else {
+            console.log(menu);
+            response.sendStatus(200);
+          }
+        });
+      console.log('Updated Lunch');
+      return;
+    case 'breakfast':
+      Menu.update(
+        {'tripId': tripId, "menu.day": day},
+        {'$pull':
+            {
+                'menu.$.breakfast':
+                    {
+                        'itemId': itemId
+                    }
+            }
+        }, function(err, menu){
+          if(err){
+            console.log(err);
+            response.sendStatus(500);
+          } else {
+            console.log(menu);
+            response.sendStatus(200);
+          }
+        });
+      console.log('Updated Breakfast');
+      return;
+    }
+});
+
 module.exports = router;
