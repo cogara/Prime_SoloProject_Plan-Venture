@@ -52,7 +52,6 @@ angular
       });
     }
 
-
     function getTrips() {
       TripService.getTrips().then(function(response){
         vm.trips = response;
@@ -129,9 +128,11 @@ angular
       vm.trip = response;
       $state.go('user.dashboard.tripDisplay.tripOverview');
     }
+
     function personalEquipSuccess(response) {
       vm.personalEquipment = response;
     }
+
     function groupEquipSuccess(response) {
       vm.groupEquipment = response;
     }

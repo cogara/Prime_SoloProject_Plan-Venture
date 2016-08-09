@@ -30,8 +30,6 @@ h3 {
   margin: 0;
 }
 
-
-
 .nav-menu {
   position: relative;
   top: -35px;
@@ -86,6 +84,7 @@ h3 {
 input {
   color: black;
 }
+
 .container {
   /*text-align: center;*/
   background-color: rgba(255,255,255,.6);
@@ -121,9 +120,10 @@ input {
 .message-board {
   width: 100%;
   border: 1px solid rgba(0,0,0,.2);
-  background-color: rgba(100,100,100,.2);
+  background-color: rgba(0,0,0,.1);
   padding: 5px 5px 10px;
   margin: 10px 0;
+  border-radius: 5px;
 }
 
 .username {
@@ -136,6 +136,8 @@ input {
 .trip-messages {
   text-align: left;
   margin: 5px;
+  max-height: 50vh;
+  overflow: scroll;
 }
 
 .trip-messages p {
@@ -165,8 +167,15 @@ input {
   display: inline-block;
 }
 
+.message-content {
+  position: relative;
+}
+
 .delete-message {
   display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .message-content:hover .delete-message{
@@ -243,8 +252,45 @@ input {
   transition: all .2s;
 }
 
+/* Blue: rgb(27,150,254), 1b96fe */
+/* yellow: rgb(255,243,0), fff300 */
+/* green: rgb(60,100,60), #3C643C */
+/* red: rgb(185,6,0), b90600 */
+/* brown: rgb(120,72,0), 784800 */
+
+
+.trip-info {
+  position: relative;
+  width: 33%;
+  margin: 0 auto;
+  clear: both;
+}
+
+.trip-info__title {
+  text-align: left;
+  border-bottom: 1px solid rgb(27,150,254);
+  font-size: 1.1em;
+  color: rgb(185,6,0);
+}
+
+.trip-info__data {
+  text-align: right;
+  font-size: 1.5em;
+  color: rgb(30,120,30);
+}
+
+.members-list {
+  width: 33%;
+  text-align: center;
+  margin: 0 auto;
+}
+
 .trip-member {
   list-style-position: inside;
+}
+
+.user-profile-link:hover {
+  color: rgb(255,243,0);
 }
 
 .equipment {
@@ -366,6 +412,14 @@ input {
 /*Media Query*/
 
 @media (max-width: 600px) {
+  .trip-info {
+    width: 66%;
+  }
+
+  .members-list {
+    width: 66%;
+  }
+
   .menu-meal {
     flex: 1 100%;
     border: none;

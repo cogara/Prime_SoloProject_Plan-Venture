@@ -1,15 +1,31 @@
 <div class="trip-overview">
 
-  <p>Date: {{dash.trip.info.date | date : 'MMM d, y'}}</p>
-  <p>Location: {{dash.trip.info.location}}</p>
-  <p>Nights: {{dash.trip.info.duration}}</p>
-  <ul class="members-list">Members:
-    <li class="trip-member" ng-repeat="user in dash.trip.users track by $index">
-      <span class="user-profile-link" ng-click="dash.getUserProfile($index)">
-        {{user.username}}
-      </span>
-    </li>
-  </ul>
+  <div class="trip-info"><div class="trip-info__title">Date</div><div class="trip-info__data">{{dash.trip.info.date | date : 'MMM d, y'}}</div></div>
+  <div class="trip-info"><div class="trip-info__title">Location</div><div class="trip-info__data">{{dash.trip.info.location}}</div></div>
+  <div class="trip-info">
+    <div class="trip-info__title">
+      Nights
+    </div>
+    <div class="trip-info__data">
+      {{dash.trip.info.duration}}
+    </div>
+  </div>
+  <div class="trip-info">
+    <div class="trip-info__title">
+      Members
+    </div>
+    <div class="trip-info__data">
+      <ul class="members-list">
+        <li class="trip-member" ng-repeat="user in dash.trip.users track by $index">
+          <span class="user-profile-link" ng-click="dash.getUserProfile($index)">
+            {{user.username}}
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
   <div class="message-board">
     Message Board:
     <div class="add-message">
@@ -29,11 +45,12 @@
     <div class="trip-messages">
       <span class="messages-age">Newer</span>
       <p class="message-content" ng-repeat="message in dash.trip.messages | orderBy:'id':true">
-        <span class="username">{{message.username}}:</span>
-        {{message.message}}
         <span class="delete-message" ng-if="dash.userData.currentUser.id === message.user_id">
           <button ng-click="dash.deleteMessage(message.id)">Delete</button>
         </span>
+        <span class="username">{{message.username}}:</span>
+        {{message.message}}
+
       </p>
       <span class="messages-age">Older</span>
     </div>
