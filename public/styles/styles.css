@@ -113,10 +113,6 @@ input {
   margin: 0 auto;
 }
 
-.members-list {
-  position: relative;
-}
-
 .message-board {
   width: 100%;
   border: 1px solid rgba(0,0,0,.2);
@@ -261,27 +257,26 @@ input {
 
 .trip-info {
   position: relative;
-  width: 33%;
+  width: 50%;
   margin: 0 auto;
   clear: both;
 }
 
 .trip-info__title {
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid rgb(27,150,254);
   font-size: 1.1em;
   color: rgb(185,6,0);
 }
 
 .trip-info__data {
-  text-align: right;
+  text-align: left;
   font-size: 1.5em;
   color: rgb(30,120,30);
 }
 
 .members-list {
-  width: 33%;
-  text-align: center;
+  text-align: left;
   margin: 0 auto;
 }
 
@@ -413,10 +408,6 @@ input {
 
 @media (max-width: 600px) {
   .trip-info {
-    width: 66%;
-  }
-
-  .members-list {
     width: 66%;
   }
 
