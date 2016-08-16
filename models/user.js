@@ -1,15 +1,6 @@
-var pg = require('pg');
+var pool = require('./db');
 var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
-
-var config = {
-  database: 'planventure',
-  port: 5432,
-  max: 10,
-  idleTimeoutMillis: 30000
-};
-
-var pool = new pg.Pool(config);
 
 function findByUsername(username, callback) {
   pool.connect(function(err, client, done) {
@@ -185,6 +176,30 @@ function removeDefaultEquipment(equipment_id, callback) {
   })
 }
 
+function updateProfile(user, callback) {
+  var email = user.email;
+  var phone = user.phone;
+  var id = user.id;
+  console.log('updating profile?', phone, email);
+  pool.connect(function(err, client, done) {
+    if(err) {
+      console.log(err);
+      done();
+      return callback(err);
+    }
+    client.query('UPDATE users SET email=$1, phone=$2 WHERE id=$3', [email, phone, id], function(err) {
+      if(err) {
+        console.log(err);
+        done();
+        return callback(err);
+      }
+      done();
+      console.log('Updated');
+      return callback(null);
+    });
+  });
+}
+
 // function getUserProfile(id, callback) {
 //   findById(id, function(err, user))
 // }
@@ -199,5 +214,6 @@ module.exports = {
   getPersonalEquipment: getPersonalEquipment,
   getDefaultEquipment: getDefaultEquipment,
   addDefaultEquipment: addDefaultEquipment,
+  updateProfile: updateProfile,
   removeDefaultEquipment: removeDefaultEquipment
 };

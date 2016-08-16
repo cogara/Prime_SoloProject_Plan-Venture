@@ -1,0 +1,69 @@
+<h5 class="text-muted">Notes</h5>
+<textarea class="trip-notes form-control" ng-disabled="!trip.editDetails" msd-elastic ng-model="trip.data.info.notes" placeholder="The organizer has not entered any notes for this trip."></textarea>
+
+
+
+<h5 class="text-muted">Participants</h5>
+<ul class="participant-list">
+  <li class="trip-member" ng-repeat="user in trip.data.users track by $index">
+    <span class="user-profile-link" ng-click="trip.getUserProfile(user)">
+      {{::user.username}} <span ng-if="user.user_id === trip.data.info.organizer_id">(organizer)</span>
+    </span>
+  </li>
+</ul>
+
+
+
+<div class="message-board">
+  <h5 class="text-muted">Discussion</h5>
+  <div class="add-message">
+    <form>
+      <input class="message-input" type="text" ng-model="trip.addMessage" placeholder="Insert Message" />
+      <span class="message-count">
+        <span ng-if="trip.addMessage.length">{{::trip.addMessage.length}}/250</span>
+        <span ng-if="!trip.addMessage.length">0/250</span>
+      </span>
+      <span class="message-button">
+        <button class="btn btn-info" ng-click="trip.sendMessage(trip.addMessage)">
+          Send!
+        </button>
+      </span>
+    </form>
+  </div>
+  <div class="trip-messages">
+    <div class="messages-age">Newer</div>
+    <p class="message-content" ng-repeat="message in trip.data.messages | orderBy:'id':true">
+      <span ng-if="main.userData.currentUser.id === message.user_id || main.userData.currentUser.id === trip.data.info.organizer_id">
+
+          <i class="fa fa-trash delete-message" ng-click="trip.deleteMessage(message.id)"></i>
+
+      </span>
+      <span class="username">{{::message.username}}:</span>
+      {{::message.message}}
+    </p>
+    <div class="messages-age">Older</div>
+  </div>
+</div>
+
+<!-- User Profile Modal -->
+<div class="profile" ng-show="trip.profileView"  ng-click="trip.closeProfile()">
+  <div class="profile-info">
+    <ul class="profile-info__list"ng-click="trip.preventClose()">
+      <li>
+        User:
+        <span>{{trip.tempProfile.username}}</span>
+      </li>
+      <li>
+        Phone:
+        <span ng-if="trip.tempProfile.phone">{{trip.tempProfile.phone}}</span>
+        <span ng-if="!trip.tempProfile.phone">N/A</span>
+      </li>
+      <li>
+        Email:
+        <span ng-if="trip.tempProfile.email">{{trip.tempProfile.email}}</span>
+        <span ng-if="!trip.tempProfile.email">N/A</span>
+      </li>
+    </ul>
+    <button class="btn">Close</button>
+  </div>
+</div>

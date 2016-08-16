@@ -1,0 +1,46 @@
+
+// _variables.scss
+$border-radius-default: 3px;
+
+// Mixins
+// Functions
+
+// Utilities
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+%cf,
+.cf {
+    *zoom: 1;
+}
+%cf:before,
+%cf:after,
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+%cf:after,
+.cf:after {
+    clear: both;
+}
+
+:root, body {
+  font-family: 'Varela Round', sans-serif;
+}
+
+
+
+
+// Imports
+@import 'colors';
+
+
+@import 'partials/layout';
+@import 'partials/header';
+@import 'partials/trips';
+@import 'partials/trip';
+@import 'partials/user';
+@import 'partials/menu';

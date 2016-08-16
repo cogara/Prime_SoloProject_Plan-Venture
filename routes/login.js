@@ -3,12 +3,12 @@ var router = require('express').Router();
 var passport = require('passport');
 var path = require('path');
 
-router.get('/', function(request, response) {
-  response.sendFile(path.join(__dirname,'..','public','views','login.html'));
-})
+// router.get('/', function(request, response) {
+//   response.sendFile(path.join(__dirname,'..','public','views','login.html'));
+// })
 
 router.get('/success', function(request, response) {
-  console.log('User logged in:',request.user.username, 'at', new Date());
+  console.log('User __', request.user.username, '__ logged in at', new Date());
   var user = {};
   user.id = request.user.id;
   user.username = request.user.username;

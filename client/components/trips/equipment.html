@@ -1,0 +1,97 @@
+<div class="page-header">
+  <h5 class="text-muted">Equipment</h5>
+  <div class="toggles">
+    <span ng-click="trip.toggleSetPersonal()" ng-class="{'toggle-on': trip.togglePersonalEquipment, 'toggle-off': !trip.togglePersonalEquipment}">Personal</span>
+    <span ng-click="trip.toggleSetGroup()" ng-class="{'toggle-on': trip.toggleGroupEquipment, 'toggle-off': !trip.toggleGroupEquipment}">Group</span>
+  </div>
+</div>
+
+<div ng-class="{'equipment-active': trip.togglePersonalEquipment, 'equipment-hide': !trip.togglePersonalEquipment}">
+  <h6 class="sub-header text-muted">Personal</h6>
+
+  <ul class="equipment-list">
+    <li class="equipment-item" ng-repeat="equipment in trip.data.equipment.personal">
+      <span>{{::equipment.equipment}}</span>
+      <button class="btn btn-outline-danger" ng-click="trip.removeEquipment(equipment)"><i class="fa fa-trash"></i></button>
+    </li>
+  </ul>
+
+
+
+  <div class="row" ng-if="trip.toggleAddEquip">
+    <div class="col-sm-6 offset-sm-3">
+      <div class="input-group">
+        <input type="text" ng-model="trip.personalEquipmentToAdd" class="form-control">
+        <span class="input-group-addon btn btn-primary" ng-click="trip.addPersonalEquipment(trip.personalEquipmentToAdd)">
+            <i class="fa fa-check" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row equipment-action">
+    <div class="col-sm-6 offset-sm-3">
+      <button class="btn btn-primary"  ng-click="trip.addEquipmentToggle()">
+        <i class="fa fa-plus" aria-hidden="true"></i> Add Item
+      </button>
+    </div>
+  </div>
+</div>
+
+<div ng-class="{'equipment-active': trip.toggleGroupEquipment, 'equipment-hide': !trip.toggleGroupEquipment}">
+  <h6 class="sub-header text-muted">Group</h6>
+
+  <ul class="equipment-list">
+    <li class="equipment-item" ng-repeat="equipment in trip.data.equipment.group | orderBy:['equipment','id']">
+      <span>{{::equipment.equipment}}</span>
+      <span class="equipment-group-action">
+        <span ng-if="equipment.username && equipment.username !== main.userData.currentUser.username" class="sub-header">
+          {{::equipment.username}} is bringing this
+        </span>
+        <button class="btn btn-primary claim-equipment"
+                  ng-if="!equipment.username"
+                  ng-click="trip.claimEquipment(equipment)">
+          I will bring this
+        </button>
+        <button ng-if="equipment.username === main.userData.currentUser.username"
+                class="btn btn-warning"
+                ng-click="trip.unclaimEquipment(equipment)">
+          I cannot bring this
+        </button>
+        <button ng-if="trip.editDetails" class="btn btn-outline-danger"
+                ng-click="trip.removeEquipment(equipment)"
+                ng-if="trip.data.info.organizer_id === main.userData.currentUser.id">
+          <i class="fa fa-trash"></i>
+        </button>
+      </span>
+    </li>
+  </ul>
+
+  <div class="row" ng-if="trip.toggleAddEquip">
+    <div class="col-sm-6 offset-sm-3">
+      <div class="input-group">
+        <input type="text" ng-model="trip.groupEquipmentToAdd" class="form-control">
+        <span class="input-group-addon btn btn-primary"  ng-click="trip.addGroupEquipment(trip.groupEquipmentToAdd)">
+          <i class="fa fa-check" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row equipment-action">
+    <div class="col-sm-6 offset-sm-3">
+      <button class="btn btn-primary"  ng-click="trip.addEquipmentToggle()">
+        <i class="fa fa-plus" aria-hidden="true"></i> Add Item
+      </button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+</div>

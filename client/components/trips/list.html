@@ -1,0 +1,52 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header page-header--divided">
+      <h2 class="page-title">{{trips.title}}</h2>
+      <div class="page-actions">
+        <button class="btn btn-primary btn--icon"  ui-sref="user.createTrip">
+          <i class="fa fa-plus"></i> Create Trip
+        </button>
+        <button class="btn btn-primary"  ui-sref="user.joinTrip">
+          <i class="fa fa-sign-in" aria-hidden="true"></i> Join Trip
+        </button>
+      </div>
+    </div>
+
+    <div class="no-trips-message" ng-if="trips.trips.length < 1">
+      Create or join a trip to get started.
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4"
+           ng-repeat="trip in trips.trips | orderBy:['trip','date']">
+        <div class="card card--trip">
+          <img class="card-img-top image--responsive" src="//unsplash.it/350/200?image=1037" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">{{::trip.trip_name}}</h4>
+            <h6 class="card-subtitle text-muted">{{::trip.date | date: 'EEE. MMM d'}} - {{::trip.endDate | date: 'EEE. MMM d, y'}}</h6>
+            <ul class="card-meta list--icon text--small">
+              <li>
+                <i class="icon fa fa-lg fa-moon-o"></i>
+                <div class="value">{{::trip.duration}} nights</div>
+              </li>
+              <li>
+                <i class="icon fa fa-lg fa-map-marker"></i>
+                <div class="value">{{::trip.location}}</div>
+              </li>
+            </ul>
+            <div style="text-align: center">
+              <a href="#" class="btn btn-primary" ng-click="trips.goToTrip(trip.id)">
+                <i class="fa fa-eye" aria-hidden="true"> </i> View
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+</div>

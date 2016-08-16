@@ -1,0 +1,21 @@
+.site-header {
+  background-color: $brand-primary;
+  padding: .5rem 0;
+  > .container {
+    padding-bottom: 0;
+  }
+  .navbar {
+    padding: 0 0;
+  }
+  .navbar-nav .nav-link {
+    color: rgba(255,255,255,.85);
+    padding: 1rem 1.5rem;
+    &:hover {
+      color: rgba(255,255,255,.95);
+    }
+  }
+  .navbar-nav .nav-item:last-child .nav-link {
+    padding-right: 0;
+  }
+
+}

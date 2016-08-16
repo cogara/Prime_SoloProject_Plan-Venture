@@ -1,0 +1,75 @@
+.trip {}
+.trip-card__meta {
+
+}
+
+// Icon List with icon on left and value/content on right
+.list--icon {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    display: block;
+    padding-bottom: 0.33rem;
+    @extend %cf;
+  }
+
+  .icon {
+    float: left;
+    width: 24px;
+    position: relative;
+    top: .1em;
+    color: #999;
+    margin-right: .33rem;
+  }
+
+  .value {
+    overflow: hidden;
+    color: #363636;
+  }
+}
+
+.text--small {
+  font-size: 0.85rem;
+}
+
+
+.card-meta {
+  margin-top: 0.75rem;
+}
+
+
+// Button Overrides
+.btn {
+  font-size: 12px;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+.btn-small {
+  font-size: 10px;
+}
+
+.btn-primary {
+  background-color: #2392f1;
+  border-color: #2297fb;
+}
+
+.btn--icon {
+  padding-left: 14px;
+
+  > i:first-child {
+    margin-right: 0.33em;
+    position: relative;
+    top: 1px;
+  }
+}
+
+.image--responsive {
+  width: 100%;
+  height: auto;
+}
+
+.image--rounded {
+  border-radius: $border-radius-default;
+}

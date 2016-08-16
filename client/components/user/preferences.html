@@ -1,0 +1,70 @@
+<div class="page-header">
+  <h2>User Preferences</h2>
+  <button class="btn btn-primary" ng-click="user.toggleEdit()">
+    <i ng-show="!user.editingProfile" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+    <i ng-show="user.editingProfile" class="fa fa-check" aria-hidden="true"></i>
+  </button>
+</div>
+
+
+
+<form class="info-field">
+  <div class="form-group row">
+    <div class="col-xs-8">
+      <label for="userEmail" class="col-xs-2 col-form-label">Username:</label>
+      <div class="col-xs-10">
+        <input style="width: 100%"  id="duration" class="form-control" ng-model="user.userData.currentUser.username" disabled>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-xs-8">
+      <label for="userEmail" class="col-xs-2 col-form-label">Email: </label>
+      <div class="col-xs-10">
+        <input style="width: 100%"  id="duration" class="form-control" ng-model="user.userData.currentUser.email" ng-disabled="!user.editingProfile" placeholder="N/A" />
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-xs-8">
+      <label for="userPhone" class="col-xs-2 col-form-label">Phone: </label>
+      <div class="col-xs-10">
+        <input style="width: 100%"  id="duration" class="form-control" ng-model="user.userData.currentUser.phone" ng-disabled="!user.editingProfile" placeholder="N/A"/>
+      </div>
+    </div>
+  </div>
+</form>
+
+<h6 class="sub-header text-muted">Default Equipment</h6>
+
+<ul class="equipment-list">
+  <li>
+    <span ng-if="user.defaultEquipment.length < 1" class="instruction">No equipment added</span>
+  </li>
+  <li>
+    <span ng-if="user.defaultEquipment.length < 1" class="instruction">Default equipment will be automatically added to each new trip you create or join</span>
+  </li>
+  <li class="equipment-item" ng-repeat="equipment in user.defaultEquipment">
+    <span>{{::equipment.equipment}}</span>
+    <button class="btn btn-outline-danger" ng-click="user.removeDefaultEquipment(equipment)"><i class="fa fa-trash"></i></button>
+  </li>
+</ul>
+
+<div class="row" ng-if="user.toggleAddEquip">
+  <div class="col-sm-6 offset-sm-3">
+    <div class="input-group">
+      <input type="text" ng-model="user.equipmentName" class="form-control">
+      <span class="input-group-addon btn btn-primary" ng-click="user.addDefaultEquipment({equipmentName: user.equipmentName})">
+          <i class="fa fa-check" aria-hidden="true"></i>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="row equipment-action">
+  <div class="col-sm-6 offset-sm-3">
+    <button class="btn btn-primary"  ng-click="user.addEquipmentToggle()">
+      <i class="fa fa-plus" aria-hidden="true"></i> Add Item
+    </button>
+  </div>
+</div>

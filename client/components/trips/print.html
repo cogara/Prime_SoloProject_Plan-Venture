@@ -1,0 +1,84 @@
+<button class="btn btn-primary" ng-click="print.print()">Print</button>
+<hr />
+<div id="printArea">
+  <h2>{{::trip.data.info.trip_name}}</h2>
+  <span class="print-hide"><input type="checkbox" ng-model="print.hideEquipment"/> Hide Equipment</span>
+  <div class="print-equipment" ng-class="{'print-hide': print.hideEquipment}">
+    <h4>Equipment List</h4>
+    <ul>
+      <li>Personal Equipment:</li>
+      <li ng-repeat="equipment in trip.data.equipment.personal">{{::equipment.equipment}}</li>
+      <li>Group Equipment:</li>
+      <li ng-repeat="equipment in trip.data.equipment.group" ng-if="equipment.user_id === main.userData.currentUser.id">{{::equipment.equipment}}</li>
+    </ul>
+  </div>
+
+  <span class="print-hide"><input type="checkbox" ng-model="print.hideGrocery"/> Hide Grocery</span>
+  <div class="print-grocery" ng-class="{'print-hide': print.hideGrocery}">
+    <h4>Grocery List</h4>
+    <ul>
+      <li ng-repeat="item in print.menuItems">{{item.name}} : {{item.qty}}</li>
+    </ul>
+  </div>
+
+  <div class="page-break" ng-if="!print.hideGrocery || !print.hideEquipment"></div>
+
+  <span class="print-hide"><input type="checkbox" ng-model="print.hideMenu"/> Hide Menu</span>
+  <div class="print-menu" ng-class="{'print-hide': print.hideMenu}">
+    <h4>Menu</h4>
+    <div class="menu-trip">
+      <div class="menu-row menu-header">
+        <div class="menu-day"></div>
+        <div class="menu-meal"><h4>Breakfast</h4></div>
+        <div class="menu-meal"><h4>Lunch</h4></div>
+        <div class="menu-meal"><h4>Dinner</h4></div>
+      </div>
+      <div class="menu-row" ng-repeat="menuDay in trip.menu">
+        <div class="menu-day menu-large">
+          <h5>{{::menuDay.date | date: 'EEE'}}</h5>
+          {{::menuDay.date | date: 'M/dd'}}
+        </div>
+        <!-- breakfast --> <!-- breakfast --> <!-- breakfast --> <!-- breakfast -->
+        <div class="menu-meal">
+          <ul class="menu-list"><h4 class="small-menu">Breakfast</h4>
+            <li class="menu-item">
+              <div class="food-item"><h5 class="food-header">Food</h5></div>
+              <div class="food-qty"><h5 class="qty-header">Qty</h5></div>
+            </li>
+            <li ng-repeat="food in menuDay.breakfast" class="menu-items">
+              <div class="food-item">{{food.name}}</div>
+              <div class="food-qty">{{food.qty}}</div>
+            </li>
+          </ul>
+        </div>
+        <!-- Lunch --> <!-- Lunch --> <!-- Lunch --> <!-- Lunch -->
+        <div class="menu-meal">
+          <ul class="menu-list"><h4 class="small-menu">Lunch</h4>
+            <li class="menu-item">
+              <div class="food-item"><h5 class="food-header">Food</h5></div>
+              <div class="food-qty"><h5 class="qty-header">Qty</h5></div>
+            </li>
+            <li ng-repeat="food in menuDay.lunch" class="menu-items">
+              <div class="food-item">{{food.name}}</div>
+              <div class="food-qty">{{food.qty}}</div>
+            </li>
+          </ul>
+        </div>
+        <!-- Dinner --> <!-- Dinner --> <!-- Dinner --> <!-- Dinner -->
+        <div class="menu-meal">
+          <ul class="menu-list"><h4 class="small-menu">Dinner</h4>
+            <li class="menu-item">
+              <div class="food-item"><h5 class="food-header">Food</h5></div>
+              <div class="food-qty"><h5 class="qty-header">Qty</h5></div>
+            </li>
+            <li ng-repeat="food in menuDay.dinner" class="menu-items">
+              <div class="food-item">{{food.name}}</div>
+              <div class="food-qty">{{food.qty}}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

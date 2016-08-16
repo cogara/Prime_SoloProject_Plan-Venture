@@ -39,4 +39,16 @@ router.delete('/remEquip/:id', function(request, response) {
   }
 });
 
+router.put('/profile', function(request, response) {
+  User.updateProfile(request.body, function(err) {
+    if(err) {
+      console.log(err);
+      response.sendStatus(500);
+    } else {
+      response.sendStatus(200);
+    }
+
+  });
+})
+
 module.exports = router;

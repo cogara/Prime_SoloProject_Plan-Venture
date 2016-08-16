@@ -7,7 +7,7 @@ CREATE TABLE "users" (
     "phone" text,
     PRIMARY KEY ("id"),
     UNIQUE ("username"),
-    UNIQUE ('email')
+    UNIQUE ("email")
 );
 
 -- create trip table
@@ -18,10 +18,10 @@ CREATE TABLE "trips" (
     "date" date,
     "duration" int,
     "access_code" text,
-    "location", varchar(40),
+    "location" varchar(40),
     PRIMARY KEY ("id"),
     UNIQUE ("trip_name"),
-    FOREIGN KEY ("organizer_id") REFERENCES "users"("id");
+    FOREIGN KEY ("organizer_id") REFERENCES "users"("id")
 );
 
 CREATE TABLE "trip_messages" (

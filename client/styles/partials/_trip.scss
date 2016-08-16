@@ -1,0 +1,282 @@
+//
+// .info-tabs {
+//   padding: 0px 0;
+// }
+
+.btn-back {
+  position: absolute;
+  top: 2px;
+}
+.pull-xs-right {
+  margin: 0;
+}
+
+.info-field {
+
+  margin-bottom: 20px;
+
+  .form-control:disabled, .trip-notes:disabled {
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  .input-group {
+    z-index: 1;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  p.input-group {
+    margin-bottom: 0;
+  }
+
+}
+
+.trip-notes {
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+.trip-notes:disabled {
+  border-color: transparent;
+  background-color: transparent;
+  color: black;
+}
+
+.toggles {
+  font-size: 0;
+  cursor: pointer;
+  color: white;
+  :first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  :nth-child(2) {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.toggle-on {
+  padding: .3rem .6rem;
+  font-size: .9rem;
+  display: inline-block;
+  background-color: $brand-primary;
+}
+
+.toggle-off {
+  padding: .3rem .6rem;
+  font-size: .9rem;
+  display: inline-block;
+  background-color: rgb(200,200,200);
+  &:hover {
+    background-color: rgb(175,175,175);
+  }
+}
+
+.equipment-list, .menu-list {
+  padding: 0;
+}
+
+.equipment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0,0,0,.2);
+  &:last-of-type {
+    border-bottom: 1px solid rgba(0,0,0,.2)
+  }
+}
+
+.equipment-action {
+  margin-top: 5px;
+}
+.equipment-active {
+  display: block;
+}
+
+.equipment-hide {
+  display: none;
+}
+
+.equipment-action {
+  text-align: center;
+}
+
+.participant-list {
+  padding: 0;
+}
+
+.organizer {
+  font-weight: bold;
+  font-style: italic;
+  color: $brand-primary;
+}
+
+.profile-info__list {
+  padding: 0;
+}
+
+.user-profile-link {
+  cursor: pointer;
+}
+
+.profile {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0,0,0,.7);
+}
+
+.profile-info {
+  border: 1px solid rgba(0,0,0,.3);
+  position: fixed;
+  top: 33vh;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  width: 25%;
+  min-width: 200px;
+  background-color: white;
+  margin: 0 auto;
+}
+
+.user-profile-link:hover {
+  color: $brand-primary;
+}
+
+.message-board {
+  padding: 15px 0;
+}
+.message-content {
+  padding: 0;
+  margin: 0;
+}
+.add-message {
+  margin: 10px 0;
+}
+.delete-message {
+  padding: 2px;
+  color: rgb(150,0,0);
+  cursor: pointer;
+  &:hover {
+    color: rgb(255,0,0);
+  }
+}
+
+.messages-age {
+  font-size: .6rem;
+  color: rgb(150,150,150);
+  text-transform: uppercase;
+}
+
+//PRINT VIEW
+#printArea {
+  display: none;
+}
+
+.print-list-item {
+  list-style-type: none;
+  // list-style-position: inside;
+  text-indent: 10px;
+}
+
+.print-item {
+  padding: 0 5px;
+}
+
+.print-icon {
+  position: relative;
+  top: -30px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.print-menu {
+  text-align: center;
+  display: block;
+  page-break-before: always;
+}
+
+.print-hide {
+  color: red;
+}
+
+@media print {
+
+  .print-hide {
+    display: none;
+  }
+
+  .menu-trip {
+    margin: 20px 0;
+    border: 1px solid black;
+  }
+
+  .menu-row {
+    display: flex;
+    width: 100%;
+  }
+
+  .menu-day {
+    flex: 0 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid black;
+  }
+
+  .menu-meal {
+    flex: 1 0;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+  }
+
+  .menu-list {
+    display: flex;
+    flex: 1 auto;
+    flex-direction: column;
+  }
+
+  .menu-items {
+    position: relative;
+  }
+
+  .menu-delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .menu-input {
+    width: 100%;
+    text-align: center;
+  }
+
+  .add-item, .food-item {
+    width: 80%;
+    display: inline-block;
+  }
+
+  .add-qty, .food-qty {
+    width: 35%;
+    display: inline-block;
+    margin: 0 5px;
+  }
+
+  .food-header, .qty-header {
+    border-bottom: 1px solid rgba(0,0,0,.3);
+    padding: 2px;
+  }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app="planVentureApp">
+  <head>
+    <title>PlanVenture</title>
+    <base href="/"></base>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/font-awesome-4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <!-- <link rel="stylesheet" href="/styles/styles.css"> -->
+    <link rel="stylesheet" href="/styles/main.css">
+
+    <!-- Vendor -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+
+    <!-- Angular Shit -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.3/angular-moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>
+    <script src="vendor/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-google-maps/2.3.3/angular-google-maps.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-elastic/2.5.1/elastic.min.js"></script>
+
+    <!-- Common -->
+    <script src="/components/common/module.js"></script>
+    <script src="/components/common/config.js"></script>
+    <script src="/components/common/main.controller.js"></script>
+    <!-- Equipment -->
+    <script src="/components/equipment/equipment.service.js"></script>
+    <!-- Trips -->
+    <script src="/components/trips/trips.service.js"></script>
+    <script src="/components/trips/trips.create.controller.js"></script>
+    <script src="/components/trips/trips.join.controller.js"></script>
+    <script src="/components/trips/trips.print.controller.js"></script>
+    <script src="/components/trips/trips.info.controller.js"></script>
+    <script src="/components/trips/trips.list.controller.js"></script>
+    <!-- Users -->
+    <script src="/components/user/user.service.js"></script>
+    <script src="/components/user/user.register.controller.js"></script>
+    <script src="/components/user/user.login.controller.js"></script>
+    <script src="/components/user/user.controller.js"></script>
+
+
+  </head>
+  <body ng-controller="MainController as main">
+    <div class="site-header">
+      <div class="container">
+        <nav class="navbar navbar-dark">
+          <a class="navbar-brand" ui-sfref="/">
+            <img src="images/planventure-logo_inverse-filled.svg" width="250px" alt="">
+          </a>
+          <ul ng-if="main.userData.currentUser.id" class="nav navbar-nav pull-xs-right">
+            <li class="nav-item">
+              <a class="nav-link" ui-sref="trips">Trips <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ui-sref="user.preferences">Preferences</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" ng-click="main.logout()">Logout</a>
+            </li>
+          </ul>
+          <ul ng-if="!main.userData.currentUser.id" class="nav navbar-nav pull-xs-right">
+            <li class="nav-item">
+              <a class="nav-link" ui-sref="login">Login!</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ui-sref="register">Register!</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- <div class="container"> -->
+      <div class="main" ui-view></div>
+    <!-- </div> -->
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzFyDKBzayeWKY35PiAIbP7ToySvY-Txo" type="text/javascript"></script>
+    <!-- <script type="text/javascript">
+      function textAreaAdjust(text) {
+        text.style.height = "1px";
+        text.style.height = (text.scrollHeight)+"px";
+    }
+    </script> -->
+  </body>
+</html>

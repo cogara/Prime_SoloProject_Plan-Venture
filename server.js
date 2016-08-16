@@ -1,4 +1,7 @@
+// AIzaSyAhN0DC4s2ipcMbUYOAEraawzM6rh1o6Xc
+
 //modules
+var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 
@@ -15,7 +18,6 @@ var login = require('./routes/login.js');
 var trips = require('./routes/trips.js');
 var users = require('./routes/users.js');
 var menus = require('./routes/menus.js')
-var index = require('./routes/index.js');
 
 var app = express();
 
@@ -34,9 +36,7 @@ MongoDB.once('open', function () {
 app.use(session({
   secret: process.env.SECRET,
   key: 'user',
-  resave: true,
-  saveUninitialized: false,
-  cookie: {maxAge: 30 * 60 * 1000, secure: false}
+  cookie: {maxAge: 24 * 60 * 60 * 1000, secure: false}
 }));
 
 passport.use('local', new LocalStrategy({
@@ -83,21 +83,30 @@ app.use(passport.session());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('public'));
+app.use(express.static('client'));
 
 //routes
-app.use('/', index);
 app.use('/register', register);
 app.use('/login', login);
-app.use('/trips', trips);
-app.use('/users', users);
-app.use('/menus', menus);
+app.get('/api/currentuser', function(request, response){
+  response.send(request.user);
+});
+app.get('*', function(request, response, next) {
+  if(!request.isAuthenticated()) {
+    response.sendStatus(500);
+  } else {
+    next();
+  }
+});
+app.use('/api/trips', trips);
+app.use('/api/users', users);
+app.use('/api/menus', menus);
 app.get('/logout', function(request, response){
   request.logout();
   response.sendStatus(200);
 });
-app.get('/currentuser', function(request, response){
-  response.send(request.user);
+app.get('*', function(request, response){
+  response.sendFile(path.join(__dirname, 'client', 'index.html'))
 });
 
 //server start

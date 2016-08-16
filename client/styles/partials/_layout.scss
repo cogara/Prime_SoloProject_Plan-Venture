@@ -1,0 +1,44 @@
+.main {
+  padding-top: 2rem;
+  position: relative;
+}
+
+.page-header {
+  display: flex;
+  margin-bottom: 1.5rem;
+  justify-content: space-between;
+  &--divided {
+    border-bottom: 1px solid #eaeaea;
+  }
+}
+
+.sub-header {
+  display: inline-block;
+  padding: 5px 0;
+  font-size: .8em;
+  text-transform: uppercase;
+  &--divided {
+    border-bottom: 1px solid #eaeaea;
+  }
+}
+
+.page-title {
+  margin-bottom: 0;
+}
+.page-actions {}
+
+
+//home screen
+.home-screen {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../images/home-bg.jpg')
+}
+
+.home-header {
+  background-color: rgba(255,255,255,.5);
+  padding: 50px 20px;
+  text-align: center;
+}

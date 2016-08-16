@@ -1,0 +1,181 @@
+<div class="container">
+<button class="btn btn-primary btn-small btn-back"  ui-sref="trips"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+<div class="row">
+  <div class="col-md-3">
+    <img class="image--rounded image--responsive" src="//unsplash.it/350/200?image=1037" alt="Card image cap">
+  </div>
+  <div class="col-md-9">
+    <div class="page-header">
+      <h2 class="page-title">{{::trip.data.info.trip_name}}</h2>
+      <span>
+        <span ng-if="main.userData.currentUser.id === trip.data.info.organizer_id">
+          <button class="btn btn-primary" ng-click="trip.saveChanges()" ng-if="trip.locationIsEdited || trip.dateIsEdited || trip.durationIsEdited || trip.notesIsEdited">
+            Save Changes
+          </button>
+          <button class="btn btn-primary" ng-click="trip.editInfo()">
+            <i ng-show="!trip.editDetails" class="fa fa-pencil-square-o" aria-hidden="true"> Edit Trip</i>
+            <i ng-show="trip.editDetails" class="fa fa-check" aria-hidden="true"> Done</i>
+          </button>
+
+        </span>
+        <button class="btn btn-primary" ng-click="trip.leaveTrip(trip.data.info.id)"><i class="fa fa-sign-out" aria-hidden="true"> Leave Trip</i></button>
+      </span>
+    </div>
+
+    <form class="info-field">
+      <div class="form-group row">
+        <label for="tripDate" class="col-xs-2 col-form-label"> Date: </label>
+        <div class="col-xs-10">
+          <p class="input-group">
+            <input
+                  ng-disabled="!trip.editDetails"
+                  type="text"
+                  class="form-control"
+                  uib-datepicker-popup={{trip.dateFormat}}
+                  ng-model="trip.data.info.date"
+                  is-open="trip.calendarOpened"
+                  datepicker-options="dateOptions"
+                  ng-required="true"
+                  close-text="Close" />
+            <span class="input-group-btn" ng-show="trip.editDetails">
+              <button type="button" class="btn btn-default" ng-click="trip.calendarOpen()"><i class="fa fa-lg fa-calendar-o"></i></button>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="tripNights" class="col-xs-2 col-form-label">Nights: </label>
+        <div class="col-xs-10">
+          <input style="width: 100%"  id="duration" class="form-control" ng-model="trip.data.info.duration" ng-disabled="!trip.editDetails" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="tripLocation" class="col-xs-2 col-form-label">Location: </label>
+        <div class="col-xs-10">
+          <input style="width: 100%" id="location" class="form-control" ng-model="trip.data.info.location"  ng-disabled="!trip.editDetails">
+        </div>
+      </div>
+    </form>
+
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a ng-class="{'nav-link': true, active: trip.tabDetails}" ng-click="trip.toggleTab('details')" href="#" ui-sref="trip.overview">Details</a>
+      </li>
+      <li class="nav-item">
+        <a ng-class="{'nav-link': true, active: trip.tabEquipment}" ng-click="trip.toggleTab('equipment')" href="#" ui-sref="trip.equipment">Equipment</a>
+      </li>
+      <li class="nav-item">
+        <a ng-class="{'nav-link': true, active: trip.tabMenu}" ng-click="trip.toggleTab('menu')" href="#" ui-sref="trip.menu">Menu</a>
+      </li>
+      <li class="nav-item">
+        <a ng-class="{'nav-link': true, active: trip.tabMap}" ng-click="trip.toggleTab('map')" href="#" ui-sref="trip.map">Map</a>
+      </li>
+    </ul>
+    <ul class="pull-xs-right">
+      <li class="print-icon" ng-click="trip.printDisplay()">
+        <i class="fa fa-lg fa-print" aria-hidden="true"></i>
+      </li>
+    </ul>
+
+
+    <div class="row info-tabs">
+      <div class="col-xs-12">
+        <div ui-view></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- PRINT TRIP -->
+<div id="printArea">
+  <h2>{{::trip.data.info.trip_name}}</h2>
+  <div class="print-equipment">
+    <h4>Equipment List</h4>
+    <ul>
+      Personal Equipment:
+      <li class="print-list-item" ng-repeat="equipment in trip.data.equipment.personal">
+        <i class="fa fa-square-o" aria-hidden="true"></i>
+        <span class="print-item">{{::equipment.equipment}}</span>
+      </li>
+      Group Equipment:
+      <li class="print-list-item" ng-repeat="equipment in trip.data.equipment.group" ng-if="equipment.user_id === main.userData.currentUser.id">
+        <i class="fa fa-square-o" aria-hidden="true"></i>
+        <span class="print-item">{{::equipment.equipment}}</span>
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="print-grocery">
+    <h4>Grocery List</h4>
+    <ul>
+      <li class="print-list-item" ng-repeat="item in trip.menuItems">
+        <i class="fa fa-square-o" aria-hidden="true"></i>
+        <span class="print-item">{{item.name}} : {{item.qty}}</span>
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="print-menu">
+    <h4>Menu</h4>
+    <div class="menu-trip">
+      <div class="menu-row menu-header">
+        <div class="menu-day"></div>
+        <div class="menu-meal"><h4>Breakfast</h4></div>
+        <div class="menu-meal"><h4>Lunch</h4></div>
+        <div class="menu-meal"><h4>Dinner</h4></div>
+      </div>
+      <div class="menu-row" ng-repeat="menuDay in trip.menu">
+        <div class="menu-day menu-large">
+          <h5>{{::menuDay.date | date: 'EEE'}}</h5>
+          {{::menuDay.date | date: 'M/dd'}}
+        </div>
+        <!-- breakfast --> <!-- breakfast --> <!-- breakfast --> <!-- breakfast -->
+        <div class="menu-meal">
+          <ul class="menu-list"><h4 class="small-menu">Breakfast</h4>
+            <li class="menu-item">
+              <div class="food-item"><h5 class="food-header">Food</h5></div>
+              <div class="food-qty"><h5 class="qty-header">Qty</h5></div>
+            </li>
+            <li ng-repeat="food in menuDay.breakfast" class="menu-items">
+              <div class="food-item">{{food.name}}</div>
+              <div class="food-qty">{{food.qty}}</div>
+            </li>
+          </ul>
+        </div>
+        <!-- Lunch --> <!-- Lunch --> <!-- Lunch --> <!-- Lunch -->
+        <div class="menu-meal">
+          <ul class="menu-list"><h4 class="small-menu">Lunch</h4>
+            <li class="menu-item">
+              <div class="food-item"><h5 class="food-header">Food</h5></div>
+              <div class="food-qty"><h5 class="qty-header">Qty</h5></div>
+            </li>
+            <li ng-repeat="food in menuDay.lunch" class="menu-items">
+              <div class="food-item">{{food.name}}</div>
+              <div class="food-qty">{{food.qty}}</div>
+            </li>
+          </ul>
+        </div>
+        <!-- Dinner --> <!-- Dinner --> <!-- Dinner --> <!-- Dinner -->
+        <div class="menu-meal">
+          <ul class="menu-list"><h4 class="small-menu">Dinner</h4>
+            <li class="menu-item">
+              <div class="food-item"><h5 class="food-header">Food</h5></div>
+              <div class="food-qty"><h5 class="qty-header">Qty</h5></div>
+            </li>
+            <li ng-repeat="food in menuDay.dinner" class="menu-items">
+              <div class="food-item">{{food.name}}</div>
+              <div class="food-qty">{{food.qty}}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
