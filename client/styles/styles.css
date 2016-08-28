@@ -225,7 +225,7 @@ input {
 }
 
 @media (max-width: 500px) {
-  .trip-box {
+  .trip-box {p
     flex: 1 100%;
     max-width: 100%;
   }
