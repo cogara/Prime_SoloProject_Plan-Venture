@@ -209,7 +209,6 @@ router.get('/messages/:id', function(request, response) {
       console.log(err);
       response.sendStatus(500);
     } else {
-      console.log('Messages timestamp?');
       response.send(messages);
     }
   })

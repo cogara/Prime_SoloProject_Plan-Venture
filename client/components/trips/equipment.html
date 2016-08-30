@@ -8,7 +8,6 @@
 
 <div ng-class="{'equipment-active': trip.togglePersonalEquipment, 'equipment-hide': !trip.togglePersonalEquipment}">
   <h6 class="sub-header text-muted">Personal</h6>
-
   <ul class="equipment-list">
     <li class="equipment-item" ng-repeat="equipment in trip.data.equipment.personal">
       <span>{{::equipment.equipment}}</span>

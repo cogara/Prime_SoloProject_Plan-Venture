@@ -158,14 +158,12 @@ function copyTrip(request, oldId, callback) {
               done(err);
               return callback(err);
             }
-            console.log('Old Equip', oldEquipment.rows);
             var newEquip = [];
             for (var i = 0; i < oldEquipment.rows.length; i++) {
               if(oldEquipment.rows[i].responsible != organizerId) {
                 oldEquipment.rows[i].responsible = null;
               }
               if(oldEquipment.rows[i].responsible === organizerId || oldEquipment.rows[i].is_group === true) {
-                console.log('Testing True for old equipment');
                 client.query('INSERT INTO trip_equipment (trip_id, equipment, is_group, responsible) VALUES ($1, $2, $3, $4) RETURNING id, equipment, is_group, responsible', [trip.rows[0].id, oldEquipment.rows[i].equipment, oldEquipment.rows[i].is_group, oldEquipment.rows[i].responsible],
                   function(err, equipResult) {
                     if(err) {
@@ -177,13 +175,11 @@ function copyTrip(request, oldId, callback) {
                 )
               }
             }
-            console.log('Passed finding/inserting old equipment', newEquip);
             Menu.find({tripId: oldId}, function(err, menu){
               if(err) {
                 done(err);
                 callback(err)
               }
-              console.log('Found Menu:', menu);
               done();
               copyMenu(trip.rows[0].id, menu);
               return callback(null, trip.rows);
@@ -403,11 +399,8 @@ function unclaimEquipment(id, callback) {
 
 function copyMenu(tripId, menu) {
   var tripMenu = {};
-  console.log('tripId', tripId);
-  console.log('menu:', menu);
   tripMenu.menu = menu[0].menu;
   tripMenu.tripId = tripId;
-  console.log('New Menu', tripMenu);
   var menu = new Menu(tripMenu);
   menu.save(function(err) {
     if(err) {
@@ -442,7 +435,6 @@ function sendMessage(request, callback) {
   var userId = request.userId;
   var message = request.message;
   var timeStamp = request.timeStamp;
-  console.log('trip timestamp?', timeStamp);
   pool.connect(function(err, client, done) {
     if(err){
       done();

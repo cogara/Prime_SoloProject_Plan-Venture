@@ -2,7 +2,7 @@ var pg = require('pg');
 
 var config = {
   user: 'postgres',
-  password: 'postgres',
+  password: process.env.PG_PASS,
   database: 'planventure',
   port: 5432,
   max: 5,

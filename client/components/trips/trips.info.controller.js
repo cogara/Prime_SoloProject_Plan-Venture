@@ -295,6 +295,7 @@ angular
 
     //Equipment functions
     function addPersonalEquipment(equipment) {
+      console.log('adding equipment', equipment);
       TripService.addPersonalEquipment(equipment, vm.data.info.id)
       .then(function() {
         TripService.getPersonalEquipment(vm.data.info.id)
@@ -337,7 +338,6 @@ angular
     }
     //refreshes current local data to match new database information
     function refreshEquipment(equipment) {
-      console.log('Is Group?', equipment.is_group);
       if(equipment.is_group) {
         TripService.getGroupEquipment(vm.data.info.id)
         .then(function(response) {

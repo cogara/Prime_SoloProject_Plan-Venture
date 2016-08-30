@@ -109,6 +109,7 @@ angular
     }
 
     function addPersonalEquipment(equipment, tripId) {
+      console.log('in service', equipment);
       return $http.post('/api/trips/equipment/' + tripId + '?personal=true', {equipmentName: equipment});
     }
 
