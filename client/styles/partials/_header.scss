@@ -13,6 +13,13 @@
     &:hover {
       color: rgba(255,255,255,.95);
     }
+    @media (max-width: 765px) {
+      padding: 1rem .6rem;
+    }
+    @media (max-width: 600px) {
+      padding: 1rem .3rem;
+    }
+
   }
   .navbar-nav .nav-item:last-child .nav-link {
     padding-right: 0;

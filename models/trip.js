@@ -197,7 +197,7 @@ function joinTrip(request, callback) {
       done();
       return callback(err);
     }
-    client.query('SELECT id, access_code FROM trips WHERE trip_name=$1',[request.body.tripName], function(err, trip){
+    client.query('SELECT id, access_code FROM trips WHERE id=$1',[request.body.id], function(err, trip){
       if(err){
         console.log(err);
         done();

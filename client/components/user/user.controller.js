@@ -15,6 +15,7 @@ angular
     vm.editProfile = editProfile;
     vm.toggleEdit = toggleEdit;
     vm.addEquipmentToggle = addEquipmentToggle;
+    vm.toggleMessage = 'Add Items';
 
     function toggleEdit() {
 
@@ -30,8 +31,10 @@ angular
 
     function addEquipmentToggle() {
       if (vm.toggleAddEquip) {
+        vm.toggleMessage = 'Add Items';
         vm.toggleAddEquip = false;
       } else {
+        vm.toggleMessage = 'Done';
         vm.toggleAddEquip = true;
       }
     }

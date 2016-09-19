@@ -96,7 +96,6 @@ angular
 
     function overviewSuccess(response) {
       data.trip = response.data;
-      console.log('Notes here?', data.trip);
       data.trip.info.date = new Date(data.trip.info.date);
       return data.trip;
     }
@@ -109,7 +108,6 @@ angular
     }
 
     function addPersonalEquipment(equipment, tripId) {
-      console.log('in service', equipment);
       return $http.post('/api/trips/equipment/' + tripId + '?personal=true', {equipmentName: equipment});
     }
 
@@ -132,7 +130,6 @@ angular
     function getMenu(tripId, date) {
       return $http.get('/api/menus/id/' + tripId).then(function(response){
         var tripMenu = response.data.menu;
-        console.log('Reversed?', tripMenu);
         if (date) {
           for (var i = 0; i < tripMenu.length; i++) {
             var tempDate = new Date(date);

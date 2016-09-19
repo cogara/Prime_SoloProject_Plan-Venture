@@ -61,7 +61,6 @@ function passwordCheck(username, candidatePassword, callback) {
 };
 
 function create(username, password, callback) {
-  console.log('Creating User');
   bcrypt.hash(password, SALT_WORK_FACTOR, function(err, hash) {
     pool.connect(function(err, client, done){
       if(err) {
@@ -136,7 +135,6 @@ function getDefaultEquipment(userId, callback) {
 }
 
 function addDefaultEquipment(userId, equipment, callback) {
-  console.log(equipment);
   pool.connect(function(err, client, done){
     if(err){
       console.log(err);
@@ -156,7 +154,6 @@ function addDefaultEquipment(userId, equipment, callback) {
 }
 
 function removeDefaultEquipment(equipment_id, callback) {
-  console.log('Equipment ID:', equipment_id);
   pool.connect(function(err, client, done){
     if(err){
       console.log(err);
@@ -169,7 +166,6 @@ function removeDefaultEquipment(equipment_id, callback) {
         done();
         return callback(err);
       }
-      console.log('removed item');
       done();
       return callback(null);
     })
@@ -180,7 +176,6 @@ function updateProfile(user, callback) {
   var email = user.email;
   var phone = user.phone;
   var id = user.id;
-  console.log('updating profile?', phone, email);
   pool.connect(function(err, client, done) {
     if(err) {
       console.log(err);
@@ -194,16 +189,10 @@ function updateProfile(user, callback) {
         return callback(err);
       }
       done();
-      console.log('Updated');
       return callback(null);
     });
   });
 }
-
-// function getUserProfile(id, callback) {
-//   findById(id, function(err, user))
-// }
-
 
 module.exports = {
   findByUsername: findByUsername,

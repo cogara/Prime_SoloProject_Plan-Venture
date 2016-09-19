@@ -88,10 +88,11 @@ app.use(express.static('client'));
 //routes
 app.use('/register', register);
 app.use('/login', login);
+
 app.get('/api/currentuser', function(request, response){
   response.send(request.user);
 });
-app.get('*', function(request, response, next) {
+app.get('api/*', function(request, response, next) {
   if(!request.isAuthenticated()) {
     response.sendStatus(500);
   } else {

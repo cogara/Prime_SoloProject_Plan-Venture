@@ -19,7 +19,6 @@ angular
     }
 
     function loginSuccess(response) {
-      console.log('Success????');
       UserService.currentUser();
       $state.go('trips');
     }

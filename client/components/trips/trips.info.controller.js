@@ -41,7 +41,6 @@ angular
           // console.log(vm.menuPrint[day].dinner[meal]);
         }
       }
-      console.log(vm.menuItems);
     }
 
 
@@ -124,10 +123,13 @@ angular
       vm.tabMap = false;
     }
 
+    vm.toggleMessage = "Add Items"
     function addEquipmentToggle() {
       if (vm.toggleAddEquip) {
+        vm.toggleMessage = 'Add Items';
         vm.toggleAddEquip = false;
       } else {
+        vm.toggleMessage = 'Done';
         vm.toggleAddEquip = true;
       }
     }
@@ -153,6 +155,10 @@ angular
       console.log('Saving Changes');
       var edits = [{location: vm.locationIsEdited}, {date: vm.dateIsEdited}, {duration: vm.durationIsEdited}, {notes: vm.notesIsEdited}];
       console.log(edits);
+      if (vm.data.info.duration > 50) {
+        alert('Duration too long. Must be below 50 nights');
+        return false;
+      }
       if (!vm.locationIsEdited && !vm.dateIsEdited && !vm.durationIsEdited && !vm.notesIsEdited) {
         return;
       }
@@ -295,7 +301,7 @@ angular
 
     //Equipment functions
     function addPersonalEquipment(equipment) {
-      console.log('adding equipment', equipment);
+      vm.personalEquipmentToAdd = '';
       TripService.addPersonalEquipment(equipment, vm.data.info.id)
       .then(function() {
         TripService.getPersonalEquipment(vm.data.info.id)
@@ -306,6 +312,7 @@ angular
     }
 
     function addGroupEquipment(equipment) {
+      vm.groupEquipmentToAdd = '';
       TripService.addGroupEquipment(equipment, vm.data.info.id)
       .then(function() {
         TripService.getGroupEquipment(vm.data.info.id)
@@ -316,7 +323,6 @@ angular
     }
 
     function removeEquipment(equipment) {
-      console.log('Removing Equip', equipment);
       TripService.removeEquipment(equipment)
       .then(function() {
         refreshEquipment(equipment);

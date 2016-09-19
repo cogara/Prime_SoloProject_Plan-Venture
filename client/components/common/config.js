@@ -13,18 +13,38 @@ function ngMaps(uiGmapGoogleMapApiProvider) {
 }
 
 function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
-  $urlRouterProvider.otherwise('index');
+  $urlRouterProvider.otherwise('login');
 
   $stateProvider
     .state('index', {
       url: '/',
-      templateUrl: '/components/common/main.html'
+      templateUrl: '/components/common/main.html',
+      resolve: {
+        function($state, UserService) {
+          UserService.currentUser().then(function(response) {
+            if(response.id) {
+              console.log(response);
+              $state.go('trips');
+            }
+          })
+        }
+      }
     })
     .state('login', {
       url: '/login',
       templateUrl: '/components/user/login.html',
       controller: 'LoginController',
-      controllerAs: 'log'
+      controllerAs: 'log',
+      resolve: {
+        function($state, UserService) {
+          UserService.currentUser().then(function(response) {
+            if(response.id) {
+              console.log(response);
+              $state.go('trips');
+            }
+          })
+        }
+      }
     })
     .state('register', {
       url: '/register',
@@ -36,7 +56,16 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/trips',
       templateUrl: '/components/trips/list.html',
       controller: 'TripsListController',
-      controllerAs: 'trips'
+      controllerAs: 'trips',
+      resolve: {
+        function($state, UserService) {
+          UserService.currentUser().then(function(response) {
+            if(!response.id) {
+              $state.go('login')
+            }
+          })
+        }
+      }
     })
     .state('trip', {
       abstract: true,
@@ -45,8 +74,21 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'TripInfoController',
       controllerAs: 'trip',
       resolve: {
-        trip: function($stateParams, TripService) {
-          return TripService.getOverview($stateParams.tripId);
+        trip: function($stateParams, $state, TripService, UserService) {
+          return UserService.currentUser().then(function(user) {
+            if(!user.id) {
+              $state.go('login')
+            } else {
+              return TripService.getOverview($stateParams.tripId).then(function(trip) {
+                for (var i = 0; i < trip.users.length; i++) {
+                  if(trip.users[i].user_id === user.id) {
+                    return trip;
+                  }
+                }
+                $state.go('trips');
+              });
+            }
+          });
         },
         tripId: function($stateParams) {
           return $stateParams.tripId;
@@ -105,11 +147,23 @@ function uiRouter($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
-    .state('user.joinTrip', {
-      url: '/join',
+    .state('joinTrip', {
+      url: '/join/:id',
       templateUrl: '/components/trips/join.html',
       controller: 'JoinTripController',
-      controllerAs: 'join'
+      controllerAs: 'join',
+      resolve: {
+        tripId: function($stateParams, $state, UserService) {
+          return UserService.currentUser().then(function(response) {
+            console.log(response);
+            if(!response.id) {
+              $state.go('login');
+            } else {
+              return $stateParams.id;
+            }
+          })
+        }
+      }
     });
 
   $locationProvider.html5Mode(true);

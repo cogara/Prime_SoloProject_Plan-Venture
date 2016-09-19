@@ -19,7 +19,6 @@ angular
           var tempEndDate = moment(vm.trips[i].date).add(vm.trips[i].duration, 'days');
           vm.trips[i].endDate = tempEndDate._d;
         }
-        console.log(vm.trips);
       }, function(){
         console.log('Error');
       });

@@ -20,7 +20,7 @@
     <form>
       <input class="message-input" type="text" ng-model="trip.addMessage" placeholder="Insert Message" />
       <span class="message-count">
-        <span ng-if="trip.addMessage.length">{{::trip.addMessage.length}}/250</span>
+        <span ng-if="trip.addMessage.length">{{trip.addMessage.length}}/250</span>
         <span ng-if="!trip.addMessage.length">0/250</span>
       </span>
       <span class="message-button">

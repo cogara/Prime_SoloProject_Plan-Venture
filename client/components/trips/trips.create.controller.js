@@ -22,6 +22,10 @@ angular
       sendData.tripLocation = vm.tripLocation;
       sendData.tripDuration = vm.tripDuration;
       sendData.accessCode = vm.accessCode;
+      if(vm.tripDuration > 50) {
+        alert('Trip duration too long. Must be below 50 nights.');
+        return false;
+      }
 
       $http.post('/api/trips/create', sendData).then(createSuccess, httpFailure);
 

@@ -7,18 +7,20 @@
         <button class="btn btn-primary btn--icon"  ui-sref="user.createTrip">
           <i class="fa fa-plus"></i> Create Trip
         </button>
-        <button class="btn btn-primary"  ui-sref="user.joinTrip">
+        <!-- <button class="btn btn-primary"  ui-sref="joinTrip">
           <i class="fa fa-sign-in" aria-hidden="true"></i> Join Trip
-        </button>
+        </button> -->
       </div>
     </div>
 
     <div class="no-trips-message" ng-if="trips.trips.length < 1">
-      Create or join a trip to get started.
+      <p>Create or join a trip to get started.</p>
+      <p>To create a trip, select Create Trip in the upper right corner.</p>
+      <p>To join a trip, ask for the invite link and access code from the trip organizer.</p>
     </div>
 
     <div class="row">
-      <div class="col-xs-4"
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
            ng-repeat="trip in trips.trips | orderBy:['trip','date']">
         <div class="card card--trip">
           <img class="card-img-top image--responsive" src="//unsplash.it/350/200?image=1037" alt="Card image cap">
